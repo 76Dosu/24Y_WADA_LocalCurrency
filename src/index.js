@@ -4,7 +4,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import './index.css';
 
 //component
-import MainPage from "./component/page/MainPage"
+import MainPage from "./component/page/Mainpage"
 import WritePostPage from './component/page/WritePostPage';
 import CommunityPage from './component/page/CommunityPage';
 import MyPage from './component/page/MyPage';

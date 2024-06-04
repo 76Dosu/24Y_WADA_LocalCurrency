@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import MyStoreItem from '../page/MyStoreItem';
+import MyStoreItem from '../items/MyStoreItem';
 
 
 const Wrapper = styled.div`
@@ -12,7 +12,6 @@ const Wrapper = styled.div`
     padding-inline: 20px;
     padding-block: 12px;
     background-color: #FFFFFF;
-    border-bottom: 2px solid #DFDFDF;
 `;
 
 const SGrid = styled.div`
