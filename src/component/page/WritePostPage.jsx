@@ -3,29 +3,22 @@ import styled from "styled-components";
 
 //component
 import Navigation from "../navigation/Navigation";
+import Header from "../header/Header";
+import FixedTop from "../header/FixedTop";
 
 //styled
-const TestTitle = styled.p`
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    height:100%;
-
-    font-size:24px;
-`
 
 const Wrapper = styled.div`
     width:100%;
-    height:100px;
-    background-color:yellow;
 `
 
-function WritePostPage(props) {
+function communityPage(props) {
 
     return (
 
         <Wrapper>
-            <TestTitle>글쓰기 페이지</TestTitle>
+            <FixedTop></FixedTop>
+            <Header backLink="/" headerTitle="포스팅"></Header>
             <Navigation></Navigation>
         </Wrapper>
     
@@ -33,4 +26,4 @@ function WritePostPage(props) {
 
 }
 
-export default WritePostPage;
+export default communityPage;
