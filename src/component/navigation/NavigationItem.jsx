@@ -24,9 +24,11 @@ const NavTitle = styled.p`
 
 function NavigationItem(props) {
 
+    const { onClick } = props;
+
     return (
 
-        <NavItemFrame>
+        <NavItemFrame onClick={onClick}>
             <NavIcon src={props.imageUrl}></NavIcon>
             <NavTitle>{props.navTitle}</NavTitle>
         </NavItemFrame>

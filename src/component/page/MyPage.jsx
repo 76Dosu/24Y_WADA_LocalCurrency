@@ -8,19 +8,19 @@ import Navigation from "../navigation/Navigation";
 const Wrapper = styled.div`
     width:100%;
     height:100px;
-    background-color:dodgerblue;
+    background-color:pink;
 `
 
-function MainPage(props) {
+function MyPage(props) {
 
     return (
 
         <Wrapper>
             <Navigation></Navigation>
         </Wrapper>
-
+    
     )
 
 }
 
-export default MainPage;
+export default MyPage;

@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import { useNavigate } from "react-router-dom";
 
 //component
 import NavigationItem from "./NavigationItem";
@@ -27,14 +28,16 @@ const NavigationFrame = styled.div`
 
 function Navigation(props) {
 
+    const navigation = useNavigate();
+
     return (
 
         <NavigationFrame>
-            <NavigationItem imageUrl={homeIcon} navTitle="홈"></NavigationItem>
+            <NavigationItem onClick={() => {navigation('/')}} imageUrl={homeIcon} navTitle="홈"></NavigationItem>
             <NavigationItem imageUrl={recommendIcon} navTitle="추천 가맹점"></NavigationItem>
             <NavigationItem navTitle="리뷰 작성"></NavigationItem>
             <NavigationItem imageUrl={communityIcon} navTitle="커뮤니티"></NavigationItem>
-            <NavigationItem imageUrl={mypageIcon} navTitle="마이페이지"></NavigationItem>
+            <NavigationItem onClick={() => {navigation('/mypage')}}  imageUrl={mypageIcon} navTitle="마이페이지"></NavigationItem>
         </NavigationFrame>
         
 
