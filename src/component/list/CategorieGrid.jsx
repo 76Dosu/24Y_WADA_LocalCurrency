@@ -1,18 +1,18 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 
+//styled
 const KateGrid = styled.div`
   display: grid;
   grid-template-columns: repeat(5, 1fr);
   gap: 15px;
-`;
-
+`
 
 const weekDays = ['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT'];
 
-function KateGrid(props){
-    const { posts, onClickItem } = props;
+function KateGrid(props) {
 
+    const { posts, onClickItem } = props;
 
     return (
         <Wrapper>

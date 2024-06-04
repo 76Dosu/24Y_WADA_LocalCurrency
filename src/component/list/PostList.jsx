@@ -12,8 +12,8 @@ const Wrapper = styled.div`
 `
 
 function PostList(props){
-    const { posts, onClickItem } = props;
 
+    const { posts, onClickItem } = props;
 
     return (
         <Wrapper>
