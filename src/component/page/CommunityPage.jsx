@@ -5,11 +5,18 @@ import styled from "styled-components";
 import Navigation from "../navigation/Navigation";
 import Header from "../header/Header";
 import FixedTop from "../header/FixedTop";
+import TextInput from "../ui/TextInput";
 
 //styled
 
 const Wrapper = styled.div`
     width:100%;
+`
+
+const SearchContainer = styled.div`
+    padding: 12px 20px;
+    height: 64px;
+    width: 100%;
 `
 
 function CommunityPage(props) {
@@ -19,6 +26,9 @@ function CommunityPage(props) {
         <Wrapper>
             <FixedTop></FixedTop>
             <Header backLink="/" headerTitle="커뮤니티"></Header>
+            <SearchContainer>
+                <TextInput/>
+            </SearchContainer>
             <Navigation></Navigation>
         </Wrapper>
     

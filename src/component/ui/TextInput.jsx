@@ -39,7 +39,7 @@ function TextInput(props) {
     return (
         <Wrapper $height={height || "40px"}>
             <InputImg src="/logo192.png" alt="logo" />
-            <StyledTextArea  value={value} onChange={onChange}></StyledTextArea>
+            <StyledTextArea  value={value} onChange={onChange} rows={1}></StyledTextArea>
         </Wrapper>
     )
 
