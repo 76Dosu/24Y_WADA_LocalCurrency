@@ -42,7 +42,7 @@ const TabButton = styled.div`
     &::after {
         content: '';
         position: absolute;
-        bottom: -5px;
+        bottom: 0px;
         left: 0;
         width: 100%;
         height: 5px;
@@ -78,8 +78,6 @@ function MyStorePage(props) {
 
     const [activeTab, setActiveTab] = useState(1);
 
-    const list1 = ['Alice', 'Bob', 'Charlie'];
-    const list2 = ['Dave', 'Eve', 'Frank'];
 
     
     const myStoreList = ['뜨끈이감자탕', '생금마을', '카페39'];
