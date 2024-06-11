@@ -30,7 +30,7 @@ function MyStoreGrid(props){
     return (
         <Wrapper>
             <SGrid>
-            {storesList.map((store, index) => (
+            {stores.map((store, index) => (
                 <MyStoreItem store={store}></MyStoreItem>
                 ))}
             </SGrid>
