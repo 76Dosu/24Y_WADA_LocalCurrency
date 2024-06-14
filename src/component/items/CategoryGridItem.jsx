@@ -25,7 +25,7 @@ function CategoryGridItem(props){
     const {index, label, onClick} = props;
 
     return (
-        <Wrapper >
+        <Wrapper onClick={onClick}>
             <Icon src={"/cateIconSample.png"}></Icon>
             <Label>{label || "카테고리"}</Label>
 

@@ -12,12 +12,14 @@ import MyStorePage from './component/page/MyStorePage';
 import PostDetailPage from './component/page/PostDetailPage';
 import StoreDetailPage from './component/page/StoreDetailPage';
 import FindStorePage from './component/page/FindStorePage';
+import CategoryPage from './component/page/CategoryPage';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
     <BrowserRouter basename={process.env.PUBLIC_URL}>
         <Routes>
             <Route index element={<MainPage />}></Route>
+            <Route path="category" element={<CategoryPage />}></Route>
             <Route path="write" element={<WritePostPage />}></Route>
             <Route path="community" element={<CommunityPage />}></Route>
             <Route path="myPage" element={<MyPage />}></Route>

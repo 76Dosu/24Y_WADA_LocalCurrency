@@ -8,6 +8,7 @@ import Header from "../header/Header";
 import FixedTop from "../header/FixedTop";
 import Button from "../ui/Button";
 import MyStoreGrid from "../list/MyStoreGrid";
+import Tabs from "../tab/Tabs";
 
 //styled
 const Wrapper = styled.div`
@@ -47,7 +48,7 @@ const TabButton = styled.div`
         width: 100%;
         height: 5px;
         background-color: #3182F7;
-        transition: transform 0.5s;
+        transition: transform 0.2s;
         transform: ${props => (props.active ? 'translateX(0)' : 'translateX(100%)')};
     }
 
@@ -83,6 +84,8 @@ function MyStorePage(props) {
     const myStoreList = ['뜨끈이감자탕', '생금마을', '카페39'];
     const recentStoreList = ['27%', '함돈'];
 
+    const myPageTab = ['즐겨찾는', '최근방문한'];
+
 
     return (
 
@@ -91,25 +94,7 @@ function MyStorePage(props) {
             <Header backLink="/" headerTitle="나의 가맹점"></Header>
             
 
-            <TempTabContainer>
-                <TabButton active={activeTab === 1} onClick={() => setActiveTab(1)}>
-                    즐겨찾는
-                </TabButton>
-                <TabButtonTwo active={activeTab === 2} onClick={() => setActiveTab(2)}>
-                    최근방문한
-                </TabButtonTwo>
-                
-            </TempTabContainer>
-                
-            <ContentArea>
-                {activeTab === 1 && (
-                    <MyStoreGrid stores={myStoreList}></MyStoreGrid>
-                )}
-                {activeTab === 2 && (
-                    <MyStoreGrid stores={recentStoreList}></MyStoreGrid>
-                )}
-                
-            </ContentArea>
+            <Tabs minWidthPer={50} tabType={'나의가맹점'} tabList={myPageTab}></Tabs>
             <Navigation></Navigation>
         </Wrapper>
     
