@@ -11,6 +11,7 @@ const StyledButton = styled.button`
     width: 100%;
     height: 51px;
     border-radius: 25.5px;
+    font-size: 16px;
     /* border-top: 1px solid #F5F0E5; */
 
     font-size:16px;
@@ -34,9 +35,15 @@ function Postbutton(props) {
     const { title, onClick } = props;
 
     return (
+<<<<<<< HEAD
         <ButtonContainer onClick={onClick}>
             <StyledButton>
                 {title}
+=======
+        <ButtonContainer>
+            <StyledButton onClick={onClick}>
+                포스트 작성하기
+>>>>>>> bf5cf87a1aa1b6724cae8c719f3ca96dcab90533
             </StyledButton>
         </ButtonContainer>
     )

@@ -10,7 +10,7 @@ const Wrapper = styled.div`
     padding-inline: 20px;
     padding-block: 12px;
     background-color: #FFFFFF;
-    border-bottom: 2px solid #DFDFDF;
+    /* border-bottom: 2px solid #DFDFDF; */
 `;
 
 const PostHeader = styled.div`

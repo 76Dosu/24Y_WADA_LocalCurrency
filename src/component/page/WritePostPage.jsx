@@ -8,6 +8,9 @@ import Header from "../header/Header";
 import FixedTop from "../header/FixedTop";
 import TextInputWrite from '../ui/TextInputWrite';
 import Postbutton from '../ui/Postbutton';
+import LocationInfo from "../items/LocationInfo";
+
+import { useLocation } from "react-router-dom";
 
 // Slider styles
 import "slick-carousel/slick/slick.css"; 
@@ -73,28 +76,30 @@ const PlusIcon = styled.span`
     display: block;
 `;
 
-const LocationInfo = styled.div`
-    margin-bottom: 12px;
-`;
+// const LocationInfo = styled.div`
+//     margin-bottom: 12px;
+// `;
 
-const StoreName = styled.h4`
-    font-size: 16px;
-    margin-bottom: 4px;
-`;
+// const StoreName = styled.h4`
+//     font-size: 18px;
+//     margin-bottom: 6px;
+//     font-weight: 300;
+// `;
 
-const Address = styled.p`
-    font-size: 14px;
-    color: #3182F7;
-    display: flex;
-    align-items: center;
-`;
+// const Address = styled.p`
+//     font-size: 14px;
+//     color: #3182F7;
+//     display: flex;
+//     align-items: center;
+//     margin-left: -5px;
+// `;
 
-const LocationIcon = styled.img`
-    width: 16px;
-    height: 16px;
-    object-fit: cover;
-    margin-right: 4px;
-`;
+// const LocationIcon = styled.img`
+//     width: 16px;
+//     height: 16px;
+//     object-fit: cover;
+//     margin-right: 4px;
+// `;
 
 const ImageSlide = styled.div`
     position: relative;
@@ -135,8 +140,12 @@ const Dot = styled.li`
 `;
 
 function CommunityPage(props) {
+<<<<<<< HEAD
     const navigate = useNavigate()
 
+=======
+    const {state} = useLocation();
+>>>>>>> bf5cf87a1aa1b6724cae8c719f3ca96dcab90533
     const [images, setImages] = useState([]);
     const [currentSlide, setCurrentSlide] = useState(0);
 
@@ -201,11 +210,17 @@ function CommunityPage(props) {
                         </Imageguide>
                     </ImagePlusContainer>
                 </ImageSection>
+<<<<<<< HEAD
                 <LocationInfo>
                     <StoreName>뜨끈이감자탕</StoreName>
                     <Address>
                         <LocationIcon src={"/location.png"} />경기도 시흥시 정왕동
                     </Address>
+=======
+                <LocationInfo storeName={state[0]} address={state[1]} borderColor={"#fff"}>
+                    {console.log("state")}
+                    {console.log(state)}
+>>>>>>> bf5cf87a1aa1b6724cae8c719f3ca96dcab90533
                 </LocationInfo>
                 <TextInputWrite
                     height={40}

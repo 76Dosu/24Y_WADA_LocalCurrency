@@ -7,6 +7,9 @@ import Button from "../ui/Button";
 // image
 import BalanceImage from "../../images/balanceIcon.png"
 
+
+
+
 // styled
 const Balance = styled.div`
     width:100%;
@@ -64,8 +67,15 @@ const ButtonFrame = styled.div`
     display:flex;
     justify-content: flex-end;
     gap:12px;
+    align-items: center;
 
     margin-top:20px;
+`
+
+const Advantage=styled.img`
+    width: 140px;
+        height: 28px;
+    
 `
 
 function BalanceFrame(props){
@@ -87,8 +97,9 @@ function BalanceFrame(props){
             </TitleFrame>
             
             <CurrencyBalance>120,000원</CurrencyBalance>
-
+           
             <ButtonFrame>
+            <Advantage src={"/advantage.png"} ></Advantage>
                 <Button background="white" color="#3182F7" width="24%" title="충전"></Button>
                 <Button width="24%" title="결제"></Button>
             </ButtonFrame>

@@ -6,7 +6,7 @@ import CategoryGridItem from '../items/CategoryGridItem';
 
 const Wrapper = styled.div`
     width: 100%;
-    margin-bottom: 8px;
+    margin-bottom: 12px;
     display: flex;
     flex-direction: column;
     justify-content: center;
