@@ -1,0 +1,15 @@
+/* slick-custom.css */
+
+/* Override dot size */
+.slick-dots li button {
+    font-size: 0;
+    line-height: 0;
+    width: 1px !important;
+    height: 12px; /* Adjust the height */
+    padding: 5px;
+}
+
+/* Override active dot style if needed */
+.slick-dots li.slick-active button {
+    background-color: #3182F7; /* Active dot color */
+}
