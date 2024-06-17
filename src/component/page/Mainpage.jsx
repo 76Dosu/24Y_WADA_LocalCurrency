@@ -6,14 +6,21 @@ import { useNavigate } from "react-router-dom";
 //component
 import Navigation from "../navigation/Navigation";
 import Header from "../header/Header";
+import SearchHeader from "../header/SearchHeader.jsx";
 import FixedTop from "../header/FixedTop";
 import CateGrid from "../list/CateGrid";
+import DividedDiv from "../ui/DividedDiv.jsx";
+import BalanceFrame from "../items/BalanceFrame.jsx";
 
 import {db} from "../../firebase.js"    // firebase 설정 가져오기
+
+//image
+import BannerImage from "../../images/main-banner.png"
 
 //styled
 const Wrapper = styled.div`
     width:100%;
+    height:2000px;
 `
 const Tag = styled.p`
     font-size: 20px;
@@ -22,15 +29,24 @@ const Tag = styled.p`
     margin-left:20px;
     margin-top: 20px;
 `
+
+const Banner = styled.div`
+    width:100%;
+    padding:16px 20px;
+    background-color:white;
+`
+
+const BannerImg = styled.img`
+    width:100%;
+`
+
 function MainPage(props) {
 
     const navigation = useNavigate();
 
     const categoryLabel = ['한식', '중식', '일식', '양식', '패스트푸드',
-        '카페', '베이커리', '편의점/마트', '의료/보건', '미용/뷰티',
-        '학원/교육', '스포츠/헬스', '숙박업', '기타', '인테리어',
-        '도서/문화', '의류/안경', '주유소', '산모/육아', '가전/통신',
-        '시장/거리', '자동차/자전거', '부동산', '평생학습기관', '여성생필품'];
+        '카페', '베이커리', '편의점/마트', '의료/보건', '학원/교육',
+        '스포츠/헬스', '도서/문화', '자동차', '부동산', '평생학습기관'];
 
     const [data, setData] = useState([]);
 
@@ -53,11 +69,23 @@ function MainPage(props) {
 
         <Wrapper>
             <FixedTop></FixedTop>
-            <Header backLink="/" headerTitle="가맹점 찾기"></Header>
+            <SearchHeader backLink="/" headerTitle="가맹점 찾기"></SearchHeader>
+
+            {/* 광고 배너 */}
+            <Banner>
+                <BannerImg src={BannerImage}></BannerImg>
+            </Banner>
+            <DividedDiv></DividedDiv>
+
+            {/* 현재 잔액 표시 */}
+            <BalanceFrame></BalanceFrame>
+            <DividedDiv></DividedDiv>
+
             <Tag>카테고리</Tag>
             <CateGrid categories={categoryLabel} onClickItem={function (p) {
                 navigation('/category', { state: p })
             }}></CateGrid>
+            <DividedDiv></DividedDiv>
             <div>
                 {data.map(item => (
                     <div key={item.id}>

@@ -6,6 +6,7 @@ import { useNavigate } from "react-router-dom";
 
 //images
 import backIcon from "../../images/back.png"
+import searchIcon from "../../images/searchIcon.png"
 
 //style
 const Wrapper = styled.div`
@@ -30,8 +31,13 @@ const HeaderTitleText = styled.p`
     color:var(--main-textColor);
 `
 
+const SerachIcon = styled.img`
+    width:20px;
+    height:20px;
+    margin-left:auto;
+`
 
-function Header(props) {
+function SearchHeader(props) {
 
     const navigation = useNavigate();
     const { backLink } = props;
@@ -41,10 +47,12 @@ function Header(props) {
         <Wrapper>
             <BackIcon onClick={() => {navigation(`${backLink}`)}} src={backIcon}></BackIcon>
             <HeaderTitleText>{props.headerTitle}</HeaderTitleText>
+
+            <SerachIcon src={searchIcon}></SerachIcon>
         </Wrapper>
 
     )
 
 }
 
-export default Header;
+export default SearchHeader;

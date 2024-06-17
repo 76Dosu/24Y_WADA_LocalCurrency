@@ -20,13 +20,14 @@ const Label = styled.p`
     color: #333333;
 `;
 
+
 function CategoryGridItem(props){
-    // 
+    
     const {index, label, onClick} = props;
 
     return (
         <Wrapper onClick={onClick}>
-            <Icon src={"/cateIconSample.png"}></Icon>
+            <Icon src={require(`../../images/Category/${index}.png`)}></Icon>
             <Label>{label || "카테고리"}</Label>
         </Wrapper>
     )
