@@ -35,7 +35,7 @@ function Navigation(props) {
         <NavigationFrame>
             <NavigationItem onClick={() => {navigation('/')}} imageUrl={homeIcon} navTitle="홈"></NavigationItem>
             <NavigationItem imageUrl={recommendIcon} navTitle="추천 가맹점"></NavigationItem>
-            <NavigationItem onClick={() => {navigation('/write')}} navTitle="리뷰 작성"></NavigationItem>
+            <NavigationItem onClick={() => {navigation('/select')}} navTitle="리뷰 작성"></NavigationItem>
             <NavigationItem onClick={() => {navigation('/community')}} imageUrl={communityIcon} navTitle="커뮤니티"></NavigationItem>
             <NavigationItem onClick={() => {navigation('/myPage')}}  imageUrl={mypageIcon} navTitle="마이페이지"></NavigationItem>
         </NavigationFrame>

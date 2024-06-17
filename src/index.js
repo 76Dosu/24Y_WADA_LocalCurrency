@@ -13,6 +13,7 @@ import PostDetailPage from './component/page/PostDetailPage';
 import StoreDetailPage from './component/page/StoreDetailPage';
 import FindStorePage from './component/page/FindStorePage';
 import CategoryPage from './component/page/CategoryPage';
+import PostSelectPage from './component/page/PostSelectPage';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -21,6 +22,7 @@ root.render(
             <Route index element={<MainPage />}></Route>
             <Route path="category" element={<CategoryPage />}></Route>
             <Route path="write" element={<WritePostPage />}></Route>
+            <Route path="select" element={<PostSelectPage />}></Route>
             <Route path="community" element={<CommunityPage />}></Route>
             <Route path="myPage" element={<MyPage />}></Route>
             <Route path="myStore" element={<MyStorePage />}></Route>

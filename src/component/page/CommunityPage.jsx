@@ -6,6 +6,8 @@ import Navigation from "../navigation/Navigation";
 import Header from "../header/Header";
 import FixedTop from "../header/FixedTop";
 import TextInput from "../ui/TextInput";
+// import PostItem from "../items/PostItem";
+// import PostList from "../list/PostList";
 
 //styled
 
@@ -29,6 +31,8 @@ function CommunityPage(props) {
             <SearchContainer>
                 <TextInput/>
             </SearchContainer>
+            {/* <PostList></PostList> */}
+            
             <Navigation></Navigation>
         </Wrapper>
     
