@@ -23,10 +23,8 @@ const ContentArea = styled.div`
     padding: 0 20px;
 `;
 
-
-
-const SearchBar=styled.textarea`
-margin-top: 12px;
+const SearchBar = styled.textarea`
+    margin-top: 12px;
     width: 100%;
     height: 40px;
     border-radius:20px ;
@@ -36,10 +34,10 @@ margin-top: 12px;
     border: 1px solid #fff;
     line-height: 20px;
     outline: none;
- font-size: 16px;
- padding: 8px;
- overflow: hidden;
- display: block;
+    font-size: 16px;
+    padding: 8px 16px;
+    overflow: hidden;
+    display: block;
 `
 
 function PostSelectPage(props) {
@@ -50,7 +48,7 @@ function PostSelectPage(props) {
             <FixedTop />
             <Header backLink="/" headerTitle="포스팅" />
             <ContentArea>
-                <SearchBar placeholder="ckwww"></SearchBar>
+                <SearchBar placeholder="가맹점을 검색해주세요"></SearchBar>
                 <LocationInfo  storeName="뜨끈이감자탕" 
                     address="경기도 시흥시 정왕동"
                     onClick={function() {navigation('/write', {state: ["뜨끈이감자탕","경기도 시흥시 정왕동"]})}} navTitle="리뷰 작성"

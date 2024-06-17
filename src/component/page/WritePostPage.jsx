@@ -1,22 +1,20 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import Slider from "react-slick";
-import { useNavigate } from "react-router-dom";
 
 //component
+import Navigation from "../navigation/Navigation";
 import Header from "../header/Header";
 import FixedTop from "../header/FixedTop";
 import TextInputWrite from '../ui/TextInputWrite';
 import Postbutton from '../ui/Postbutton';
 import LocationInfo from "../items/LocationInfo";
 
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 // Slider styles
 import "slick-carousel/slick/slick.css"; 
 import "slick-carousel/slick/slick-theme.css";
-
-import { db } from "../../firebase.js"    // firebase 설정 가져오기
 
 const Wrapper = styled.div`
     width: 100%;
@@ -24,7 +22,7 @@ const Wrapper = styled.div`
 
 const ContentArea = styled.div`
     width: 100%;
-    height:calc(100vh - 178px);
+    height: calc(100vh - 220px);
     overflow: auto;
     padding: 0 20px;
 `;
@@ -140,14 +138,11 @@ const Dot = styled.li`
 `;
 
 function CommunityPage(props) {
-<<<<<<< HEAD
-    const navigate = useNavigate()
-
-=======
     const {state} = useLocation();
->>>>>>> bf5cf87a1aa1b6724cae8c719f3ca96dcab90533
     const [images, setImages] = useState([]);
     const [currentSlide, setCurrentSlide] = useState(0);
+
+    const navigate = useNavigate();
 
     const handleImageClick = () => {
         document.getElementById('imageUpload').click();
@@ -178,10 +173,6 @@ function CommunityPage(props) {
         }
     };
 
-    // firebase 업로드
-    const [title, setTitle] = useState('');
-    const [content, setContents] = useState('');
-
     return (
         <Wrapper>
             <FixedTop />
@@ -210,30 +201,19 @@ function CommunityPage(props) {
                         </Imageguide>
                     </ImagePlusContainer>
                 </ImageSection>
-<<<<<<< HEAD
-                <LocationInfo>
-                    <StoreName>뜨끈이감자탕</StoreName>
-                    <Address>
-                        <LocationIcon src={"/location.png"} />경기도 시흥시 정왕동
-                    </Address>
-=======
                 <LocationInfo storeName={state[0]} address={state[1]} borderColor={"#fff"}>
                     {console.log("state")}
                     {console.log(state)}
->>>>>>> bf5cf87a1aa1b6724cae8c719f3ca96dcab90533
                 </LocationInfo>
                 <TextInputWrite
                     height={40}
-                    fontSize={20}
                     placeholder="제목을 입력하세요"
-                    value={title} onChange={(e) => setTitle(e.target.value)}
                 />
                 <TextInputWrite
                     height={200}
                     placeholder="내용을 입력하세요"
                     placeholderColor="#88888850"
                     placeholderFontSize="14px"
-                    value={content} onChange={(e) => setContents(e.target.value)}
                 />
                 <Postbutton onClick={() => navigate("/postDetail")}title="포스트 작성하기"/>
             </ContentArea>

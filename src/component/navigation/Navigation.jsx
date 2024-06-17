@@ -52,13 +52,9 @@ function Navigation(props) {
         <NavigationFrame>
             <NavigationItem onClick={() => {navigation('/')}} imageUrl={homeIcon} navTitle="홈"></NavigationItem>
             <NavigationItem imageUrl={recommendIcon} navTitle="추천 가맹점"></NavigationItem>
-<<<<<<< HEAD
-            <NavigationItem onClick={() => {navigation('/select')}} navTitle="리뷰 작성"></NavigationItem>
-=======
-            <NavigationWrite onClick={() => {navigation('/write')}}>
+            <NavigationWrite onClick={() => {navigation('/select')}}>
                 <WriteImage src={writeIcon}></WriteImage>
             </NavigationWrite>
->>>>>>> 25bde5369f7b995973417a3e51f4ebea54e13b95
             <NavigationItem onClick={() => {navigation('/community')}} imageUrl={communityIcon} navTitle="커뮤니티"></NavigationItem>
             <NavigationItem onClick={() => {navigation('/myPage')}}  imageUrl={mypageIcon} navTitle="마이페이지"></NavigationItem>
         </NavigationFrame>

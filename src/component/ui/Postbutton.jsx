@@ -35,15 +35,9 @@ function Postbutton(props) {
     const { title, onClick } = props;
 
     return (
-<<<<<<< HEAD
         <ButtonContainer onClick={onClick}>
             <StyledButton>
                 {title}
-=======
-        <ButtonContainer>
-            <StyledButton onClick={onClick}>
-                포스트 작성하기
->>>>>>> bf5cf87a1aa1b6724cae8c719f3ca96dcab90533
             </StyledButton>
         </ButtonContainer>
     )
