@@ -28,8 +28,6 @@ function CategoryGridItem(props){
         <Wrapper onClick={onClick}>
             <Icon src={"/cateIconSample.png"}></Icon>
             <Label>{label || "카테고리"}</Label>
-
-            
         </Wrapper>
     )
 }

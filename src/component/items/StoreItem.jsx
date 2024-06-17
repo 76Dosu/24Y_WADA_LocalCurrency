@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import styled from "styled-components";
 
 const Wrapper = styled.div`
@@ -21,14 +21,14 @@ const ContentContainer = styled.div`
     border-radius: 0 0 12px 12px;
 `;
 
-const StoreName = styled.p`
+const NameText = styled.p`
     font-size: 20px;
     font-weight: bold;
     color: #333333;
     margin-bottom:3px;
 `;
 
-const StoreSecondName = styled.p`
+const SecondNameText = styled.p`
     font-size: 12px;
     color: #666666;
     margin-bottom:15px;
@@ -101,9 +101,10 @@ const LastIcon = styled(Icon)`
     margin-left: auto;
 `;
 
-function TempStoreItem(props){
+function StoreItem(props){
     // 
     const {listType, heightRatio ,store, onClick} = props;
+    const [bookMark, setBookmark] = useState('off');
 
     return (
         <Wrapper >
@@ -112,8 +113,11 @@ function TempStoreItem(props){
             </PostImgBox>
             {listType === '카테고리' && (
                 <ContentContainer>
-                    <StoreName>{store || "뜨끈이 감자탕"}</StoreName>
-                    <StoreSecondName>시화이마트점</StoreSecondName>
+                    <NameText>{store || "뜨끈이 감자탕"}</NameText>
+                    <StateContainer>
+                        <SecondNameText>시화이마트점</SecondNameText>
+                        <SecondNameText>768 m</SecondNameText>
+                    </StateContainer>
                     <StateContainer>
                         <Icon src={"/LikeBlue.png"}></Icon>
                         <Numb>132</Numb>
@@ -129,21 +133,26 @@ function TempStoreItem(props){
                             <UserImg src={"/sampleImg1.png"}></UserImg>
                         </UserImgBox>
                         <Numb>+2</Numb>
-                        <LastIcon src={"/StarOn.png"}></LastIcon>
+                        {bookMark==='on' && (
+                            <LastIcon onClick={() => setBookmark('off')} src={"/StarOn.png"}></LastIcon>
+                        )}
+                        {bookMark==='off' && (
+                            <LastIcon onClick={() => setBookmark('on')} src={"/StarOff.png"}></LastIcon>
+                        )}
                     </StateContainer>
                 </ContentContainer>
             )}
             {listType === '나의가맹점' && (
                 <ContentContainer>
-                    <StoreName>{store || "가맹점 이름"}</StoreName>
-                    <StoreSecondName>시화이마트점</StoreSecondName>
+                    <NameText>{store || "가맹점 이름"}</NameText>
+                    <SecondNameText>시화이마트점</SecondNameText>
                     <DateText>7일전 방문</DateText>
                 </ContentContainer>
             )}
             {listType === '메뉴' && (
                 <ContentContainer>
-                    <StoreName>{store || "메뉴 이름"}</StoreName>
-                    <StoreSecondName>9,000 원</StoreSecondName>
+                    <NameText>{store || "메뉴 이름"}</NameText>
+                    <SecondNameText>9,000 원</SecondNameText>
                 </ContentContainer>
             )}
 
@@ -152,4 +161,4 @@ function TempStoreItem(props){
     )
 }
 
-export default TempStoreItem;
+export default StoreItem;

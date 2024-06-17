@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import MyStoreItem from '../items/MyStoreItem';
+import StoreItem from '../items/StoreItem';
 
 
 const Wrapper = styled.div`
@@ -31,7 +31,7 @@ function MyStoreGrid(props){
         <Wrapper>
             <SGrid>
             {stores.map((store, index) => (
-                <MyStoreItem key={index} store={store}></MyStoreItem>
+                <StoreItem key={index} listType={'나의가맹점'} store={store}></StoreItem>
                 ))}
             </SGrid>
         </Wrapper>

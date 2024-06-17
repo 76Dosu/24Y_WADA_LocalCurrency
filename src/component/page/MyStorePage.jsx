@@ -94,7 +94,7 @@ function MyStorePage(props) {
             <Header backLink="/" headerTitle="나의 가맹점"></Header>
             
 
-            <Tabs minWidthPer={50} tabType={'나의가맹점'} tabList={myPageTab}></Tabs>
+            <Tabs minWidthPer={50} tabType={'나의가맹점'} tabList={myPageTab} nowState={0}></Tabs>
             <Navigation></Navigation>
         </Wrapper>
     

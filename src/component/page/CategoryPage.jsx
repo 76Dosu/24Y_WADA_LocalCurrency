@@ -50,29 +50,27 @@ function CategoryPage(props) {
     // const [activeTab, setActiveTab] = useState(1);
     const {state} = useLocation();
 
-    console.log(state)
 
     
     const myStoreList = ['뜨끈이감자탕', '생금마을', '카페39'];
     const recentStoreList = ['27%', '함돈'];
 
-    const [activeTab, setActiveTab] = useState(0);
+    const categoryLabel = ['한식', '중식', '일식', '양식', '패스트푸드', 
+    '카페', '베이커리', '편의점/마트', '의료/보건', '미용/뷰티', 
+    '학원/교육', '스포츠/헬스', '숙박업', '기타', '인테리어',
+    '도서/문화', '의류/안경', '주유소', '산모/육아', '가전/통신',
+    '시장/거리', '자동차/자전거', '부동산', '평생학습기관', '여성생필품'];
 
-    const contents = state.map((tab, i) => (
-        <TabContent key={i}>
-            <MyStoreGrid stores={myStoreList}></MyStoreGrid>
-        </TabContent>
-    ));
 
 
     return (
 
         <Wrapper>
             <FixedTop></FixedTop>
-            <Header backLink="/" headerTitle="나의 가맹점"></Header>
+            <Header backLink="/" headerTitle="가맹점 찾기"></Header>
             
 
-            <Tabs tabType={'카테고리'} tabList={state}></Tabs>
+            <Tabs tabType={'카테고리'} tabList={categoryLabel} nowState={state}></Tabs>
             <Navigation></Navigation>
         </Wrapper>
     
