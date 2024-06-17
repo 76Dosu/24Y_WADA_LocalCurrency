@@ -5,7 +5,10 @@ import styled from "styled-components";
 //component
 import MyStoreGrid from "../list/MyStoreGrid";
 import StoreItem from '../items/StoreItem';
-import StyledMapComponent from '../map/TestMap';
+import MyStoreItem from '../items/MyStoreItem';
+import TestMap from '../map/TestMap';
+
+import { db } from "../../firebase.js"    // firebase 설정 가져오기
 
 //styled
 const Wrapper = styled.div`
@@ -139,11 +142,15 @@ const FilterButtonCover = styled.div`
     margin-left:auto;
 `;
 
+
 function Tabs(props) {
-    const {minWidthPer, tabType, tabList, nowState} =props;
+    const { minWidthPer, tabType, tabList, nowState, data } = props;
     // 탭바 밑에 컨텐츠 영역 높이 조절하려면 ContentArea, TabContent 두 컴포넌트의 css 속성 height: calc() 수정해주면됨 (둘다 변경해줘야함)
-    
-    const myStoreList = ['뜨끈이감자탕', '생금마을', '카페39','뜨끈이감자탕', '생금마을', '카페39'];
+
+
+    const categoryLabel = ['한식', '중식'];
+
+    const myStoreList = ['뜨끈이감자탕', '생금마을', '카페39', '뜨끈이감자탕', '생금마을', '카페39'];
     const recentStoreList = ['27%', '함돈'];
 
     const [activeTab, setActiveTab] = useState(nowState || 0);
@@ -151,33 +158,76 @@ function Tabs(props) {
 
     const tabContainerRef = useRef(null);
 
+
+    const [recentVisitData, setRecentVisitData] = useState([]);
+    const [bookMarkData, setBookMarkData] = useState([]);
+
+
+    useEffect(function () {
+        let tempData = []
+        db.collection('recentVisitStores').doc('recentVisit').get().then(function (doc) {
+            const tempDocData = doc.data();
+            tempData.push(...tempDocData.recentVisitArray)
+            setRecentVisitData(tempData);
+        })
+    }, [])
+    useEffect(function () {
+        let tempData = []
+        db.collection('bookMarkStores').doc('bookMark').get().then(function (doc) {
+            const tempDocData = doc.data();
+            tempData.push(...tempDocData.bookMarkArray)
+            setBookMarkData(tempData);
+        })
+    }, [])
+
     useEffect(() => {
         const tabContainer = tabContainerRef.current;
         const activeTabElement = tabContainer.children[activeTab];
         if (activeTabElement) {
-          tabContainer.scrollTo({
-            left: activeTabElement.offsetLeft,
-            // behavior: 'smooth',
-          });
+            tabContainer.scrollTo({
+                left: activeTabElement.offsetLeft,
+                // behavior: 'smooth',
+            });
         }
-      }, []); 
+    }, []);
 
     const contents = tabList.map((tab, i) => (
         <>
             {tabType === '카테고리' && (
                 <TabContent minheight={350} key={i}>
                     <ContentWrapper>
-                        <StoreItem heightRatio={40} listType={'카테고리'}></StoreItem>
-                        <StoreItem heightRatio={40} listType={'카테고리'}></StoreItem>
-                        <StoreItem heightRatio={40} listType={'카테고리'}></StoreItem>
-                        <StoreItem heightRatio={40} listType={'카테고리'}></StoreItem>
+                        {data.map((item) => (
+                            <>
+                                {item.stores && item.stores.map(store => (
+                                    <>
+                                        {Number(item.id) === i &&
+                                            <>
+                                                <StoreItem data={store} heightRatio={40} listType={'카테고리'}></StoreItem>
+
+                                            </>
+                                        }
+                                    </>
+                                ))}
+                            </>
+                        ))}
                     </ContentWrapper>
                 </TabContent>
             )}
             {tabType === '나의가맹점' && (
-                
+
                 <TabContent minheight={280} key={i}>
-                    <MyStoreGrid stores={myStoreList}></MyStoreGrid>
+                    <>
+                        {i === 0 &&
+                            <>
+                                <MyStoreGrid data={data} tabData={bookMarkData} stores={myStoreList}></MyStoreGrid>
+                            </>
+                        }
+                        {i === 1 &&
+                            <>
+                                <MyStoreGrid data={data} tabData={recentVisitData} stores={myStoreList}></MyStoreGrid>
+                            </>
+                        }
+                    </>
                 </TabContent>
             )}
         </>
@@ -186,7 +236,7 @@ function Tabs(props) {
         <>
             <TabContent overflow={"hidden"} minheight={350}>
                 <ContentWrapper padding={"0"}>
-                    <StyledMapComponent></StyledMapComponent>
+                    <TestMap data={data} nowTabIndex={activeTab}></TestMap>
                 </ContentWrapper>
             </TabContent>
         </>
@@ -222,7 +272,7 @@ function Tabs(props) {
                                 </MapTabButton>
                             </MapTab>
                         </MapTabCover>
-                        
+
                         <FilterButtonContainer>
                             <FilterButtonCover>
                                 <FilterButton src={"/filterButton.png"}></FilterButton>
@@ -263,10 +313,10 @@ function Tabs(props) {
                         </TabContentContainer>
                     </ContentArea>
                 </>
-                
+
             )}
         </Wrapper>
-    
+
     )
 
 }

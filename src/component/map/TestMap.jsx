@@ -6,13 +6,18 @@ import styled from 'styled-components';
 const MapContainer = styled.div`
   width: 100%;
   height: 580px;
+
+  &:focus {
+    outline: none;
+  }
 `;
+
 const SlideUpPanel = styled.div`
   position: fixed;
   bottom: 0;
   left: 0;
   width: 100%;
-  height: 200px;
+  height: 300px;
   border-radius: 20px;
   background-color: white;
   box-shadow: 0px -2px 10px rgba(0, 0, 0, 0.1);
@@ -20,9 +25,10 @@ const SlideUpPanel = styled.div`
   transition: transform 0.3s ease-in-out;
   padding: 20px;
 `;
+
 const center = {
-    lat: 37.34293,
-    lng: 126.735312
+    lat: 37.340637,
+    lng: 126.733017
 };
 
 const mapOptions = {
@@ -35,43 +41,51 @@ const mapOptions = {
     fullscreenControl: false // 전체화면 컨트롤 비활성화
 };
 
-
-
-function TestMap() {
-
+function TestMap(props) {
+    const { data, nowTabIndex } = props;
     const [selectedLocation, setSelectedLocation] = useState(null);
+
     const handleMarkerClick = (location) => {
         setSelectedLocation(location);
     };
+
+    const handleMapClick = () => {
+        setSelectedLocation(null);
+    };
+
     return (
-        <>
+        <MapContainer>
             <LoadScript googleMapsApiKey={process.env.REACT_APP_GOOGLE_MAPS_API_KEY}>
                 <GoogleMap
                     mapContainerStyle={{ width: '100%', height: '100%', outline: 'none' }}
                     center={center}
                     zoom={15}
                     options={mapOptions}
+                    onClick={handleMapClick}
                 >
-                    <Marker position={center}
-                        onClick={() => handleMarkerClick(center)} />
+                    {data.map(item => (
+                        Number(item.id) === nowTabIndex &&
+                        item.stores.map(store => (
+                            <Marker
+                                key={store.id}
+                                position={{ lat: store.locationX, lng: store.locationY }}
+                                onClick={() => handleMarkerClick(store)}
+                            />
+                        ))
+                    ))}
+                    <Marker position={center} onClick={handleMapClick} />
                 </GoogleMap>
             </LoadScript>
             <SlideUpPanel visible={!!selectedLocation}>
                 {selectedLocation && (
                     <>
                         <h2>{selectedLocation.name}</h2>
-                        <p>{selectedLocation.description}</p>
+                        <p>{selectedLocation.branchName}</p>
                     </>
                 )}
             </SlideUpPanel>
-        </>
+        </MapContainer>
     );
 }
 
-const StyledMapComponent = () => (
-    <MapContainer>
-        <TestMap />
-    </MapContainer>
-);
-
-export default StyledMapComponent;
+export default TestMap;

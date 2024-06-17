@@ -103,19 +103,19 @@ const LastIcon = styled(Icon)`
 
 function StoreItem(props){
     // 
-    const {listType, heightRatio ,store, onClick} = props;
+    const {listType, heightRatio ,store, data, onClick} = props;
     const [bookMark, setBookmark] = useState('off');
 
     return (
         <Wrapper >
             <PostImgBox height={heightRatio || 80}>
-                <PostImg src={"/foodsample1.png"}></PostImg>
+                <PostImg src={data.storeImage+".png"}></PostImg>
             </PostImgBox>
             {listType === '카테고리' && (
                 <ContentContainer>
-                    <NameText>{store || "뜨끈이 감자탕"}</NameText>
+                    <NameText>{data.name || "가맹점이름"}</NameText>
                     <StateContainer>
-                        <SecondNameText>시화이마트점</SecondNameText>
+                        <SecondNameText>{data.branchName}</SecondNameText>
                         <SecondNameText>768 m</SecondNameText>
                     </StateContainer>
                     <StateContainer>
@@ -144,8 +144,8 @@ function StoreItem(props){
             )}
             {listType === '나의가맹점' && (
                 <ContentContainer>
-                    <NameText>{store || "가맹점 이름"}</NameText>
-                    <SecondNameText>시화이마트점</SecondNameText>
+                    <NameText>{data.name || "가맹점 이름"}</NameText>
+                    <SecondNameText>{data.branchName}</SecondNameText>
                     <DateText>7일전 방문</DateText>
                 </ContentContainer>
             )}
