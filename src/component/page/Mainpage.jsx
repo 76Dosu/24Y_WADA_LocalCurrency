@@ -5,7 +5,6 @@ import { useNavigate } from "react-router-dom";
 
 //component
 import Navigation from "../navigation/Navigation";
-import Header from "../header/Header";
 import SearchHeader from "../header/SearchHeader.jsx";
 import FixedTop from "../header/FixedTop";
 import CateGrid from "../list/CateGrid";
