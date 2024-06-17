@@ -1,5 +1,6 @@
 import React from 'react'
 import styled from "styled-components";
+// import { useNavigate } from "react-router-dom";
 
 const StyledButton = styled.button`
     padding:12px 0;
@@ -11,21 +12,31 @@ const StyledButton = styled.button`
     height: 51px;
     border-radius: 25.5px;
     /* border-top: 1px solid #F5F0E5; */
+
+    font-size:16px;
+    font-weight:bold;
 `;
 
-
 const ButtonContainer = styled.div`
-    margin-top: 32px;
-    display: flex;
+    position: fixed;
+    display:flex;
+    padding:12px 20px;
+
+    width:100%;
+    bottom:0px;
+    left:0;
+    border-top:1px solid #f5f5f5;
     justify-content: center;
 `;
 
-function Postbutton(props){
-    const { onClick } = props;
+function Postbutton(props) {
+
+    const { title, onClick } = props;
+
     return (
-        <ButtonContainer>
-            <StyledButton onClick={onClick}>
-                Posting
+        <ButtonContainer onClick={onClick}>
+            <StyledButton>
+                {title}
             </StyledButton>
         </ButtonContainer>
     )

@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import Slider from "react-slick";
+import { useNavigate } from "react-router-dom";
 
 //component
-import Navigation from "../navigation/Navigation";
 import Header from "../header/Header";
 import FixedTop from "../header/FixedTop";
 import TextInputWrite from '../ui/TextInputWrite';
@@ -13,13 +13,15 @@ import Postbutton from '../ui/Postbutton';
 import "slick-carousel/slick/slick.css"; 
 import "slick-carousel/slick/slick-theme.css";
 
+import { db } from "../../firebase.js"    // firebase 설정 가져오기
+
 const Wrapper = styled.div`
     width: 100%;
 `;
 
 const ContentArea = styled.div`
     width: 100%;
-    height: calc(100vh - 220px);
+    height:calc(100vh - 178px);
     overflow: auto;
     padding: 0 20px;
 `;
@@ -133,6 +135,8 @@ const Dot = styled.li`
 `;
 
 function CommunityPage(props) {
+    const navigate = useNavigate()
+
     const [images, setImages] = useState([]);
     const [currentSlide, setCurrentSlide] = useState(0);
 
@@ -165,6 +169,10 @@ function CommunityPage(props) {
         }
     };
 
+    // firebase 업로드
+    const [title, setTitle] = useState('');
+    const [content, setContents] = useState('');
+
     return (
         <Wrapper>
             <FixedTop />
@@ -195,23 +203,25 @@ function CommunityPage(props) {
                 </ImageSection>
                 <LocationInfo>
                     <StoreName>뜨끈이감자탕</StoreName>
-                    <Address><LocationIcon src={"/location.png"} />경기도 시흥시 정왕동</Address>
+                    <Address>
+                        <LocationIcon src={"/location.png"} />경기도 시흥시 정왕동
+                    </Address>
                 </LocationInfo>
                 <TextInputWrite
                     height={40}
+                    fontSize={20}
                     placeholder="제목을 입력하세요"
+                    value={title} onChange={(e) => setTitle(e.target.value)}
                 />
                 <TextInputWrite
                     height={200}
                     placeholder="내용을 입력하세요"
                     placeholderColor="#88888850"
                     placeholderFontSize="14px"
+                    value={content} onChange={(e) => setContents(e.target.value)}
                 />
-                <Postbutton
-                    title="포스트 작성하기"
-                />
+                <Postbutton onClick={() => navigate("/postDetail")}title="포스트 작성하기"/>
             </ContentArea>
-            <Navigation />
         </Wrapper>
     );
 }

@@ -19,7 +19,7 @@ import BannerImage from "../../images/main-banner.png"
 //styled
 const Wrapper = styled.div`
     width:100%;
-    height:2000px;
+    height:calc(100vh + 16px);
 `
 const Tag = styled.p`
     font-size: 20px;

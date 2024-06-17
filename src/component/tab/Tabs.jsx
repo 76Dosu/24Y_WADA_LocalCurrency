@@ -3,14 +3,8 @@ import styled from "styled-components";
 
 
 //component
-import Navigation from "../navigation/Navigation";
-import Header from "../header/Header";
-import FixedTop from "../header/FixedTop";
-import Button from "../ui/Button";
 import MyStoreGrid from "../list/MyStoreGrid";
-import { useLocation } from 'react-router-dom';
 import StoreItem from '../items/StoreItem';
-import MyStoreItem from '../items/MyStoreItem';
 import StyledMapComponent from '../map/TestMap';
 
 //styled
@@ -85,8 +79,6 @@ const MapTabContainer = styled.div`
     padding-inline: 20px;
 `;
 
-
-
 const MapTabButton = styled.div`
   display: flex;
   align-items: center;
@@ -151,7 +143,6 @@ function Tabs(props) {
     const {minWidthPer, tabType, tabList, nowState} =props;
     // 탭바 밑에 컨텐츠 영역 높이 조절하려면 ContentArea, TabContent 두 컴포넌트의 css 속성 height: calc() 수정해주면됨 (둘다 변경해줘야함)
     
-    
     const myStoreList = ['뜨끈이감자탕', '생금마을', '카페39','뜨끈이감자탕', '생금마을', '카페39'];
     const recentStoreList = ['27%', '함돈'];
 
@@ -211,7 +202,7 @@ function Tabs(props) {
                         {tabList.map((tab, index) => (
                             <TabButton
                                 key={index}
-                                min_width_per = {minWidthPer || 25}
+                                min_width_per = {minWidthPer || 22}
                                 active={activeTab === index}
                                 onClick={() => setActiveTab(index)}
                             >
@@ -258,7 +249,7 @@ function Tabs(props) {
                         {tabList.map((tab, index) => (
                             <TabButton
                                 key={index}
-                                min_width_per = {minWidthPer || 25}
+                                min_width_per = {minWidthPer || 22}
                                 active={activeTab === index}
                                 onClick={() => setActiveTab(index)}
                             >
