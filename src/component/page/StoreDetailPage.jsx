@@ -130,6 +130,8 @@ function StoreDetailPage(props) {
 
             </StoreImgWrap>
 
+            </StoreImgWrap>
+            
             <ContentsArea>
                 {/* 유틸 */}
                 <UtilContentArea>
