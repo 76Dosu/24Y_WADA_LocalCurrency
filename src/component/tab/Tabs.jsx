@@ -222,12 +222,16 @@ function Tabs(props) {
                     <>
                         {i === 0 &&
                             <>
-                                <MyStoreGrid data={data} tabData={bookMarkData} stores={myStoreList}></MyStoreGrid>
+                                <MyStoreGrid data={data} tabData={bookMarkData} stores={myStoreList} onClickItem={function(s){
+                                                    navigate("/store/" + s.id, {state: s})
+                                                }}></MyStoreGrid>
                             </>
                         }
                         {i === 1 &&
                             <>
-                                <MyStoreGrid data={data} tabData={recentVisitData} stores={myStoreList}></MyStoreGrid>
+                                <MyStoreGrid data={data} tabData={recentVisitData} stores={myStoreList} onClickItem={function(s){
+                                                    navigate("/store/" + s.id, {state: s})
+                                                }}></MyStoreGrid>
                             </>
                         }
                     </>

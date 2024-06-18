@@ -10,7 +10,7 @@ import infoIcon from "../../images/info.png"
 //component
 import Navigation from "../navigation/Navigation";
 import FixedTop from "../header/FixedTop";
-import StoreHeader from "../header/StoreHeader";
+import Header from "../header/Header.jsx";
 import StoreUtilMenu from "../items/StoreUtilMenu";
 import DividedDiv from "../ui/DividedDiv"
 import StoreInfo from "../ui/StoreInfo";
@@ -85,37 +85,24 @@ const StoreMenuArea = styled.div`
 
 function StoreDetailPage(props) {
 
-    const location = useLocation();
-    const queryString = location.title;
 
     const [data, setData] = useState([]);
+    const {state} = useLocation();
 
-    useEffect(function() {
-        let tempData = [];
-
-        db.collection('dummyData2').doc('1').collection('store').doc('ch_store1').collection('menu').get().then(function(qs) {
-            
-            qs.forEach(function(doc) {
-                tempData.push(doc.data())
-            })
-
-            setData(tempData);
-            console.log(tempData)
-        })
-    }, [])
+    
 
     return (
 
         <Wrapper>
             <FixedTop />
-            <StoreHeader backLink="/category" headerTitle={queryString}/>
+            <Header backLink="/" headerTitle={state.name}></Header>
 
-            <StoreBanner src={storeImage}></StoreBanner>
+            <StoreBanner src={state.storeImage}></StoreBanner>
 
             {/* 유틸 */}
             <UtilContentArea>
             
-                <StoreTItle>뜨끈이감자탕 이마트시화점</StoreTItle>
+                <StoreTItle>{state.name+" "+state.branchName}</StoreTItle>
                 <LikeContainer>
                         <Icon src={"/LikeBlue.png"}></Icon>
                         <Numb>132</Numb>
@@ -141,7 +128,7 @@ function StoreDetailPage(props) {
 
             {/* 음식 메뉴 */}
             <StoreMenuArea>
-                <StoreList menus={data}></StoreList>
+                <StoreList menus={state.menus}></StoreList>
 
             </StoreMenuArea>
 

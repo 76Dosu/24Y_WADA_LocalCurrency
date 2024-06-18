@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
@@ -104,69 +104,81 @@ const TEST = styled.img`
     width:100%;
 `
 
-function StoreItem(props){
-    
-    const {listType, heightRatio ,store, data, onClickItem} = props;
+function StoreItem(props) {
+
+    const { listType, heightRatio, store, data, onClickItem } = props;
     const [bookMark, setBookmark] = useState('off');
 
     const navigate = useNavigate()
 
     return (
-        
+
         //우선은 클릭 시 가맹점 상세페이지로 이동
         //나중에 파이어베이스 연결해줘서 맞춰야할 듯
-        <Wrapper onClick={()=> onClickItem(data)}>
-            <PostImgBox height={heightRatio || 80}>
-                <PostImg src={data.storeImage+".png"}></PostImg>
-            </PostImgBox>
+        <>
             {listType === '카테고리' && (
-                <ContentContainer>
-                    <NameText>{data.name || "가맹점이름"}</NameText>
-                    <StateContainer>
-                        <SecondNameText>{data.branchName}</SecondNameText>
-                        <SecondNameText>768 m</SecondNameText>
-                    </StateContainer>
-                    <StateContainer>
-                        <Icon src={"/LikeBlue.png"}></Icon>
-                        <Numb>132</Numb>
-                        
-                        <Bar>|</Bar>
-                        <UserImgBox>
-                            <UserImg src={"/sampleImg1.png"}></UserImg>
-                        </UserImgBox>
-                        <UserImgBox>
-                            <UserImg src={"/sampleImg1.png"}></UserImg>
-                        </UserImgBox>
-                        <UserImgBox>
-                            <UserImg src={"/sampleImg1.png"}></UserImg>
-                        </UserImgBox>
-                        <Numb>+2</Numb>
-                        {bookMark==='on' && (
-                            <LastIcon onClick={() => setBookmark('off')} src={"/StarOn.png"}></LastIcon>
-                        )}
-                        {bookMark==='off' && (
-                            <LastIcon onClick={() => setBookmark('on')} src={"/StarOff.png"}></LastIcon>
-                        )}
-                    </StateContainer>
-                </ContentContainer>
+                <Wrapper onClick={() => onClickItem(data)}>
+                    <PostImgBox height={heightRatio || 80}>
+                        <PostImg src={data.storeImage + ".png"}></PostImg>
+                    </PostImgBox>
+                    <ContentContainer>
+                        <NameText>{data.name || "가맹점이름"}</NameText>
+                        <StateContainer>
+                            <SecondNameText>{data.branchName}</SecondNameText>
+                            <SecondNameText>768 m</SecondNameText>
+                        </StateContainer>
+                        <StateContainer>
+                            <Icon src={"/LikeBlue.png"}></Icon>
+                            <Numb>132</Numb>
+
+                            <Bar>|</Bar>
+                            <UserImgBox>
+                                <UserImg src={"/sampleImg1.png"}></UserImg>
+                            </UserImgBox>
+                            <UserImgBox>
+                                <UserImg src={"/sampleImg1.png"}></UserImg>
+                            </UserImgBox>
+                            <UserImgBox>
+                                <UserImg src={"/sampleImg1.png"}></UserImg>
+                            </UserImgBox>
+                            <Numb>+2</Numb>
+                            {bookMark === 'on' && (
+                                <LastIcon onClick={() => setBookmark('off')} src={"/StarOn.png"}></LastIcon>
+                            )}
+                            {bookMark === 'off' && (
+                                <LastIcon onClick={() => setBookmark('on')} src={"/StarOff.png"}></LastIcon>
+                            )}
+                        </StateContainer>
+                    </ContentContainer>
+                </Wrapper>
+
             )}
             {listType === '나의가맹점' && (
-                <ContentContainer>
-                    <NameText>{data.name || "가맹점 이름"}</NameText>
-                    <SecondNameText>{data.branchName}</SecondNameText>
-                    <DateText>7일전 방문</DateText>
-                </ContentContainer>
+                <Wrapper onClick={onClickItem}>
+                    <PostImgBox height={heightRatio || 80}>
+                        <PostImg src={data.storeImage + ".png"}></PostImg>
+                    </PostImgBox>
+                    <ContentContainer>
+                        <NameText>{data.name || "가맹점 이름"}</NameText>
+                        <SecondNameText>{data.branchName}</SecondNameText>
+                        <DateText>7일전 방문</DateText>
+                    </ContentContainer>
+                </Wrapper>
             )}
             {listType === '메뉴' && (
-                <ContentContainer>
-                    <NameText>{name|| "메뉴 이름"}</NameText>
-                    <SecondNameText>{price}</SecondNameText>
-                    <TEST src={image}></TEST>
-                </ContentContainer>
+                <Wrapper>
+                    <PostImgBox height={heightRatio || 80}>
+                        <PostImg src={data.menuImage + ".png"}></PostImg>
+                    </PostImgBox>
+                    <ContentContainer>
+                        <NameText>{data.menuName || "메뉴 이름"}</NameText>
+                        <SecondNameText>{data.menuPrice}</SecondNameText>
+                    </ContentContainer>
+                </Wrapper>
             )}
 
-            
-        </Wrapper>
+
+        </>
     )
 }
 

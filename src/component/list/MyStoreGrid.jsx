@@ -23,7 +23,7 @@ const SGrid = styled.div`
 
 
 function MyStoreGrid(props) {
-    const { data, tabData } = props;
+    const { data, tabData, onClickItem } = props;
 
 
     const storesList = ['뜨끈이감자탕', '생금마을', '카페39'];
@@ -34,9 +34,9 @@ function MyStoreGrid(props) {
                     <>
                         {item.stores && item.stores.map(store => (
                             <>
-                                {tabData.includes(store.name+"_"+store.branchName) &&
+                                {tabData.includes(store.name + "_" + store.branchName) &&
                                     <>
-                                        <StoreItem data={store} listType={'나의가맹점'}></StoreItem>
+                                        <StoreItem data={store} listType={'나의가맹점'} onClickItem={()=>onClickItem(store)}></StoreItem>
                                     </>
                                 }
                             </>

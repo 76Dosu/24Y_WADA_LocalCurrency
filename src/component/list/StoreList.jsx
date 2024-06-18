@@ -15,9 +15,9 @@ function StoreList(props) {
 
     return (
         <Wrapper>
-            {menus.map((post, index) => { 
+            {menus.map((menu, index) => { 
                 return (
-                    <StoreItem listType='메뉴' name={post.menuName} price={post.menuPrice} image={post.menuImage}></StoreItem>
+                    <StoreItem listType='메뉴' data={menu} heightRatio={40}></StoreItem>
                 )
 
             })}
