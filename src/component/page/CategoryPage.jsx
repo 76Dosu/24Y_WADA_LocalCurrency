@@ -39,6 +39,7 @@ const TabContentContainer = styled.div`
     display: flex;
     transition: transform 0.5s ease;
     transform: ${props => `translateX(-${props.activeTab * 100}%)`};
+    overflow:hidden;
 `;
 
 const TabContent = styled.div`
