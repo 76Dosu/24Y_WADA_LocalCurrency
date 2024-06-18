@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { GoogleMap, LoadScript, Marker } from '@react-google-maps/api';
+import React, { useState, } from 'react';
+import { GoogleMap, LoadScript, Marker, InfoWindow } from '@react-google-maps/api';
 import styled from 'styled-components';
 
 // 스타일 정의
@@ -41,21 +41,45 @@ const mapOptions = {
     fullscreenControl: false // 전체화면 컨트롤 비활성화
 };
 
+
 function TestMap(props) {
     const { data, nowTabIndex } = props;
     const [selectedLocation, setSelectedLocation] = useState(null);
+    const [infoWindowPosition, setInfoWindowPosition] = useState(null);
+    const [infoWindowContent, setInfoWindowContent] = useState(null);
+    const [customIcon, setCustomIcon] = useState(null);
 
     const handleMarkerClick = (location) => {
         setSelectedLocation(location);
     };
 
+    const handleCenterClick = () => {
+        setInfoWindowPosition({ lat: 37.340637, lng: 126.733017 });
+        setInfoWindowContent("현재위치");
+    };
+
     const handleMapClick = () => {
         setSelectedLocation(null);
+        setInfoWindowPosition(null);
+        setInfoWindowContent(null);
+    };
+
+    const handleLoadScript = () => {
+        const icon = {
+            path: "M 0, 0 m -10, 0 a 10,10 0 1,0 20,0 a 10,10 0 1,0 -20,0", // 원형 아이콘 경로
+            fillColor: "blue", // 원하는 색상으로 변경
+            fillOpacity: 1,
+            strokeWeight: 8, // 외곽선 두께 설정
+            strokeColor: "#3182F7", // 외곽선 색상
+            scale: 1, // 아이콘 크기 조정
+            anchor: new window.google.maps.Point(0, 0)
+        };
+        setCustomIcon(icon);
     };
 
     return (
         <MapContainer>
-            <LoadScript googleMapsApiKey={process.env.REACT_APP_GOOGLE_MAPS_API_KEY}>
+            <LoadScript googleMapsApiKey={process.env.REACT_APP_GOOGLE_MAPS_API_KEY} onLoad={handleLoadScript}>
                 <GoogleMap
                     mapContainerStyle={{ width: '100%', height: '100%', outline: 'none' }}
                     center={center}
@@ -73,7 +97,12 @@ function TestMap(props) {
                             />
                         ))
                     ))}
-                    <Marker position={center} onClick={handleMapClick} />
+                    <Marker position={center} icon={customIcon} onClick={handleCenterClick} />
+                    {infoWindowPosition && (
+                        <InfoWindow position={infoWindowPosition} onCloseClick={handleMapClick}>
+                            <div>{infoWindowContent}</div>
+                        </InfoWindow>
+                    )}
                 </GoogleMap>
             </LoadScript>
             <SlideUpPanel visible={!!selectedLocation}>
