@@ -31,8 +31,6 @@ const TempTabContainer = styled.div`
     white-space: nowrap;
 `;
 
-
-
 const TabContentContainer = styled.div`
     display: flex;
     transition: transform 0.5s ease;

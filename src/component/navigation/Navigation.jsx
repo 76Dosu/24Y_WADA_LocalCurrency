@@ -7,7 +7,7 @@ import NavigationItem from "./NavigationItem";
 
 //images
 import homeIcon from "../../images/home.png"
-import recommendIcon from "../../images/recommend.png"
+import qrIcon from "../../images/qr.png"
 import communityIcon from "../../images/community.png"
 import mypageIcon from "../../images/mypage.png"
 import writeIcon from "../../images/write.png"
@@ -51,7 +51,7 @@ function Navigation(props) {
 
         <NavigationFrame>
             <NavigationItem onClick={() => {navigation('/')}} imageUrl={homeIcon} navTitle="홈"></NavigationItem>
-            <NavigationItem onClick={() => {navigation('/Qr')}} imageUrl={recommendIcon} navTitle="추천 가맹점"></NavigationItem>
+            <NavigationItem onClick={() => {navigation('/Qr')}} imageUrl={qrIcon} navTitle="QR 결제"></NavigationItem>
             <NavigationWrite onClick={() => {navigation('/select')}}>
                 <WriteImage src={writeIcon}></WriteImage>
             </NavigationWrite>

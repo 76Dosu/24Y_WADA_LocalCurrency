@@ -1,6 +1,8 @@
-import React, { useState, } from 'react';
+import React, { useState } from 'react';
 import { GoogleMap, LoadScript, Marker, InfoWindow } from '@react-google-maps/api';
 import styled from 'styled-components';
+
+//Compontents
 
 // 스타일 정의
 const MapContainer = styled.div`
@@ -12,6 +14,15 @@ const MapContainer = styled.div`
   }
 `;
 
+const SwipeBar = styled.div`
+    width:20%;
+    height:2px;
+    background-color:#999999;
+    margin:0 auto;
+    margin-bottom:16px;
+`
+
+// style - 슬라이드 업 패널
 const SlideUpPanel = styled.div`
   position: fixed;
   bottom: 0;
@@ -24,6 +35,54 @@ const SlideUpPanel = styled.div`
   transform: ${(props) => (props.visible ? 'translateY(0)' : 'translateY(100%)')};
   transition: transform 0.3s ease-in-out;
   padding: 20px;
+`;
+
+const StoreTitle = styled.div`
+    width:100%;
+    display:flex;
+    align-items: flex-end;
+    gap:4px;
+`
+const StoreName = styled.p`
+    font-size:16px;
+    font-weight:400;
+    color:#333;
+`
+const StorePos = styled.p`
+    font-size:16px;
+    font-weight:400;
+    color:#333;
+`
+
+const StoreInfo = styled.div`
+    display:flex;
+    align-items:center;
+    margin-top:4px;
+`
+
+const LikeContainer = styled.div`
+    width: fit-content;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+`;
+    const Icon = styled.img`
+        width: 16px;
+        height: 16px;
+        text-align: center;
+    `;
+    const Numb = styled.p`
+        font-size: 14px;
+        color: #66707A;
+    `;
+
+const StoreDistance = styled.p`
+    font-size:14px;
+    color:#777;
+`
+
+const LastIcon = styled(Icon)`
+    margin-left: auto;
 `;
 
 const center = {
@@ -48,6 +107,8 @@ function TestMap(props) {
     const [infoWindowPosition, setInfoWindowPosition] = useState(null);
     const [infoWindowContent, setInfoWindowContent] = useState(null);
     const [customIcon, setCustomIcon] = useState(null);
+
+    const [bookMark, setBookmark] = useState("off")
 
     const handleMarkerClick = (location) => {
         setSelectedLocation(location);
@@ -105,11 +166,33 @@ function TestMap(props) {
                     )}
                 </GoogleMap>
             </LoadScript>
+
+            {/* 슬라이드 업 패널 */}
             <SlideUpPanel visible={!!selectedLocation}>
                 {selectedLocation && (
                     <>
-                        <h2>{selectedLocation.name}</h2>
-                        <p>{selectedLocation.branchName}</p>
+                        <SwipeBar></SwipeBar>
+
+                        <StoreTitle>
+                            <StoreName>{selectedLocation.name}</StoreName>
+                            <StorePos>{selectedLocation.branchName}</StorePos>
+                        </StoreTitle>      
+
+                        <StoreInfo>
+                            <StoreDistance>230m ㅣ</StoreDistance>
+                            <LikeContainer>
+                                <Icon src={"/LikeBlue.png"}></Icon>
+                                <Numb>132</Numb>
+                            </LikeContainer>
+
+                            {bookMark==='on' && (
+                            <LastIcon onClick={() => setBookmark('off')} src={"/StarOn.png"}></LastIcon>
+                            )}
+                            {bookMark==='off' && (
+                                <LastIcon onClick={() => setBookmark('on')} src={"/StarOff.png"}></LastIcon>
+                            )}
+                        </StoreInfo>
+                        
                     </>
                 )}
             </SlideUpPanel>
