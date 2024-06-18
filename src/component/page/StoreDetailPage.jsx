@@ -26,15 +26,14 @@ const Wrapper = styled.div`
 function StoreDetailPage(props) {
     
     const { headerTitle } = props;
-    const location = useLocation();
-    const queryString = location.headerTitle;
+    // const location = useLocation();
+    // const queryString = location.headerTitle;
 
     return (
 
         <Wrapper>
             <FixedTop />
-            <StoreHeader backLink="/category" headerTitle={    const queryString = location.headerTitle;
-}/>
+            <StoreHeader backLink="/category" headerTitle={headerTitle}/>
 
             <Navigation></Navigation>
         </Wrapper>
