@@ -5,7 +5,6 @@ import styled from "styled-components";
 //component
 import MyStoreGrid from "../list/MyStoreGrid";
 import StoreItem from '../items/StoreItem';
-import MyStoreItem from '../items/MyStoreItem';
 import TestMap from '../map/TestMap';
 
 import { db } from "../../firebase.js"    // firebase 설정 가져오기

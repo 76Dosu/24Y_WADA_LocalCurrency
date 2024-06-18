@@ -56,8 +56,6 @@ const PostImg = styled.img`
     transform: translate(-50%, -50%);
 `;
 
-
-
 const Numb = styled.p`
     font-size: 14px;
     color: #66707A;

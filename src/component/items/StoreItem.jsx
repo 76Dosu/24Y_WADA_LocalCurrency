@@ -1,4 +1,5 @@
 import React, {useState} from "react";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
 const Wrapper = styled.div`
@@ -56,8 +57,6 @@ const PostImg = styled.img`
     transform: translate(-50%, -50%);
 `;
 
-
-
 const Numb = styled.p`
     font-size: 14px;
     color: #66707A;
@@ -102,12 +101,17 @@ const LastIcon = styled(Icon)`
 `;
 
 function StoreItem(props){
-    // 
+    
     const {listType, heightRatio ,store, data, onClick} = props;
     const [bookMark, setBookmark] = useState('off');
 
+    const navigate = useNavigate()
+
     return (
-        <Wrapper >
+        
+        //우선은 클릭 시 가맹점 상세페이지로 이동
+        //나중에 파이어베이스 연결해줘서 맞춰야할 듯
+        <Wrapper onClick={() => navigate("/storeDetail?headerTitle=" + data.name)} >
             <PostImgBox height={heightRatio || 80}>
                 <PostImg src={data.storeImage+".png"}></PostImg>
             </PostImgBox>

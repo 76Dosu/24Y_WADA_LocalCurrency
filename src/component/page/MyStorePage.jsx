@@ -28,9 +28,6 @@ const TempTabContainer = styled.div`
     border-bottom: 1px solid #E6E6E6;
 `
 
-
-
-
 const TabButton = styled.div`
     display: flex;
     align-items:center;
@@ -81,8 +78,6 @@ function MyStorePage(props) {
 
     const [activeTab, setActiveTab] = useState(1);
 
-
-    
     const myStoreList = ['뜨끈이감자탕', '생금마을', '카페39'];
     const recentStoreList = ['27%', '함돈'];
 
