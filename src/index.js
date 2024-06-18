@@ -11,7 +11,6 @@ import MyPage from './component/page/MyPage';
 import MyStorePage from './component/page/MyStorePage';
 import PostDetailPage from './component/page/PostDetailPage';
 import StoreDetailPage from './component/page/StoreDetailPage';
-import FindStorePage from './component/page/FindStorePage';
 import CategoryPage from './component/page/CategoryPage';
 import PostSelectPage from './component/page/PostSelectPage';
 import QrcodePage from './component/page/QrcodePage';
@@ -31,7 +30,6 @@ root.render(
             <Route path="myStore" element={<MyStorePage />}></Route>
             <Route path="postDetail" element={<PostDetailPage />}></Route>
             <Route path="storeDetail" element={<StoreDetailPage />}></Route>
-            <Route path="findStore" element={<FindStorePage />}></Route>
         </Routes>
     </BrowserRouter>
 );

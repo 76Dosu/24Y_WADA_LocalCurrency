@@ -1,8 +1,11 @@
 import React from "react";
 import styled from "styled-components";
+import { useLocation } from "react-router-dom";
 
 //component
 import Navigation from "../navigation/Navigation";
+import FixedTop from "../header/FixedTop";
+import StoreHeader from "../header/StoreHeader";
 
 //styled
 const TestTitle = styled.p`
@@ -21,11 +24,18 @@ const Wrapper = styled.div`
 `
 
 function StoreDetailPage(props) {
+    
+    const { headerTitle } = props;
+    const location = useLocation();
+    const queryString = location.headerTitle;
 
     return (
 
         <Wrapper>
-            <TestTitle>가맹점 상세 페이지</TestTitle>
+            <FixedTop />
+            <StoreHeader backLink="/category" headerTitle={    const queryString = location.headerTitle;
+}/>
+
             <Navigation></Navigation>
         </Wrapper>
     
