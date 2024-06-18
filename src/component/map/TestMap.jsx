@@ -200,7 +200,7 @@ function TestMap(props) {
             
             {/* 슬라이드 업 패널 */}
             <SlideUpPanel visible={!!selectedLocation} onClick={function () {
-                navigate("/store/" + selectedLocation.id, { state: selectedLocation })}} >
+                navigate("/store/" + selectedLocation.id, { state: [selectedLocation, 0] })}} >
                 {selectedLocation && (
                     <>
                         <SwipeBar></SwipeBar>

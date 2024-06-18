@@ -100,9 +100,20 @@ function PostItem(props) {
                     <UserImg src={"/sampleImg1.png"}></UserImg>
                 </UserImgBox>
                 <UserNameText>김리뷰</UserNameText>
-                <DateText>
-                    {post.year}.{post.month}.{post.day}
-                </DateText>
+                {post.month < 10 &&
+                    <>
+                        <DateText>
+                            {post.year}.0{post.month}.{post.day}
+                        </DateText>
+                    </>
+                }
+                {post.month >= 10 &&
+                    <>
+                        <DateText>
+                            {post.year}.{post.month}.{post.day}
+                        </DateText>
+                    </>
+                }
                 <DecoIcon src={"/decoButton.png"}></DecoIcon>
             </PostHeader>
             <TitleText>{post.title} ···</TitleText>
