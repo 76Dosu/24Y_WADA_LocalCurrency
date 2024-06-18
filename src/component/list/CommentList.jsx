@@ -1,11 +1,12 @@
 import React from "react";
 import styled from "styled-components";
-// import CommentItem from "../page/CommentItem";
+import CommentItem from "../items/CommentItem";
 
 // image
 import likeIcon from "../../images/like.png"
 
 const Wrapper = styled.div`
+    width:100%;
     display:flex;
     flex-direction: column;
     align-items: flex-start;
@@ -83,36 +84,17 @@ const LikeButton = styled.img`
 `
 
 function CommentList(props) {
-    
-    const { comments, onClick } = props;
+
+    const { postInfo, comments, onClick } = props;
 
     return (
         <Wrapper>
-            <CommentUserInfo>
-                <UserImage src={"/profileSample1.png"}></UserImage>
-                <UserTextInfo>
-                    <UserName>티노사랑</UserName>
-                    <UserWriteTime>1주전</UserWriteTime>
-                </UserTextInfo>
-
-                <BalanceUtilFrame>
-                    <UtilSpan></UtilSpan>
-                    <UtilSpan></UtilSpan>
-                    <UtilSpan></UtilSpan>
-                </BalanceUtilFrame>
-            </CommentUserInfo>
-
-            <CommentFrame>
-                <CommentContents>미쳤습니다.</CommentContents>
-                <LikeButton src={likeIcon}></LikeButton>
-            </CommentFrame>
-            {/* {comments && comments.map((comment, index) => {
-
+            
+            {comments.map((comment, index) => {
                 return (
-                    <CommentItem key={comment.id} comment={comment}></CommentItem>
+                    <CommentItem key={comment.id} comment={comment} postInfo={postInfo}></CommentItem>
                 )
-
-            })} */}
+            })}
         </Wrapper>
     )
 

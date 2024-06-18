@@ -208,7 +208,7 @@ function CommunityPage(props) {
                         let month = timeTemp.getMonth()+1;
                         let day = timeTemp.getDate();
                         // console.log(year+"년"+month+"월"+day+"일")
-                        db.collection('dummyData2').doc('0').collection('store').doc('kr_store_1').collection('post').doc(timeStamp).set({
+                        db.collection('dummyData').doc('0').collection('store').doc('kr_store_1').collection('post').doc(timeStamp).set({
                             id: timeStamp,
                             year: year,
                             month: month,

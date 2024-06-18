@@ -66,7 +66,7 @@ function CategoryPage(props) {
         console.log("start");
         const fetchData = async () => {
           let tempData = [];
-          const collectionName = "dummyData2";
+          const collectionName = "dummyData";
     
           try {
             // Get the top-level collection 'dummyData2'
