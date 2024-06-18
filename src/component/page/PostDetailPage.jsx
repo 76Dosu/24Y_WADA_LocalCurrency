@@ -18,7 +18,6 @@ import Button from "../ui/Button";
 
 //image
 import RepresentImage from "../../images/testImage.png"
-import { useLocation } from "react-router-dom";
 
 //styled
 const Wrapper = styled.div`
@@ -92,6 +91,7 @@ function PostDetailPage(props) {
     const navigation = useNavigate();
 
     const [storeData, setStoreData] = useState(null);
+    const [comment, setComment] = useState(null);
     const postIdToFind = state.id; // 찾아야 할 post의 ID
 
     useEffect(() => {
