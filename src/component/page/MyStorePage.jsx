@@ -140,7 +140,7 @@ function MyStorePage(props) {
 
         <Wrapper>
             <FixedTop></FixedTop>
-            <Header backLink="/" headerTitle="MY 플레이스"></Header>
+            <Header backLink={-1} headerTitle="MY 플레이스"></Header>
             
 
             <Tabs data={data} minWidthPer={50} tabType={'나의가맹점'} tabList={myPageTab} nowState={0}></Tabs>
