@@ -4,8 +4,8 @@ import StoreItem from "../items/StoreItem";
 
 const Wrapper = styled.div`
     display:flex;
+    width:100%;
     align-items: flex-start;
-    gap:16px;
 `
 
 function StoreList(props) {
@@ -16,7 +16,7 @@ function StoreList(props) {
         <Wrapper>
             {menus.map((menu, index) => { 
                 return (
-                    <StoreItem listType='메뉴' data={menu} heightRatio={40}></StoreItem>
+                    <StoreItem listType='메뉴' data={menu} heightRatio={100}></StoreItem>
                 )
 
             })}

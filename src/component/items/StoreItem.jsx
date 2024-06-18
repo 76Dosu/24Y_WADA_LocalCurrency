@@ -4,6 +4,7 @@ import styled from "styled-components";
 
 const Wrapper = styled.div`
     width: 100%;
+    min-height:200px;
 
     margin-bottom: 16px;
     background-color: #FFFFFF;
@@ -12,6 +13,20 @@ const Wrapper = styled.div`
     display: flex;
     flex-direction: column;
 `;
+const MenuWrapper = styled(Wrapper)`
+    min-width: 160px;
+    min-height:200px;
+    width:160px;
+
+    padding-right:20px;
+
+    background-color: #FFFFFF;
+    border-radius: 12px;
+
+    display: flex;
+    flex-direction: column; 
+`
+
 const ContentContainer = styled.div`
     padding: 10px;
     display: flex;
@@ -42,7 +57,7 @@ const DateText = styled.p`
 
 const PostImgBox = styled.div`
     width: 100%; 
-    padding-bottom: ${props => props.height}%; /* 높이를 너비의 100%로 설정하여 정사각형 유지 */
+    padding-bottom: ${props => props.height}%;
     overflow: hidden;
     position: relative;
     border-radius: 12px 12px 0 0;
@@ -99,10 +114,6 @@ const Icon = styled.img`
 const LastIcon = styled(Icon)`
     margin-left: auto;
 `;
-
-const TEST = styled.img`
-    width:100%;
-`
 
 function StoreItem(props) {
 
@@ -166,15 +177,15 @@ function StoreItem(props) {
                 </Wrapper>
             )}
             {listType === '메뉴' && (
-                <Wrapper>
-                    <PostImgBox height={heightRatio || 80}>
+                <MenuWrapper>
+                    <PostImgBox height={heightRatio || 0}>
                         <PostImg src={data.menuImage + ".png"}></PostImg>
                     </PostImgBox>
                     <ContentContainer>
                         <NameText>{data.menuName || "메뉴 이름"}</NameText>
                         <SecondNameText>{data.menuPrice}</SecondNameText>
                     </ContentContainer>
-                </Wrapper>
+                </MenuWrapper>
             )}
 
 

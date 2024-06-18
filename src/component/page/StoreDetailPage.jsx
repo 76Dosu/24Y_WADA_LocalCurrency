@@ -19,6 +19,8 @@ import StoreList from "../list/StoreList.jsx";
 //styled
 const Wrapper = styled.div`
     width:100%;
+    overflow:scroll;
+    height:calc(100vh - 116px);
 ;`
 
 // store
@@ -30,11 +32,13 @@ const UtilContentArea = styled.div`
 
 const StoreBanner = styled.img`
     width:100%;
+    height:100%;
+    object-fit:cover;
 `
 
 const ContentsArea = styled.div`
-    width:100%;
-    height:calc(100vh - 220px);
+    width:100%;  
+    overflow:hidden;
 `
 
 const StoreTItle = styled.p`
@@ -80,7 +84,32 @@ const StoreMenuArea = styled.div`
     display:flex;
     width:100%;
 `
+const StoreMenuArea2 = styled.div`
+    width:100%;
+    overflow-x:auto;
+    padding:0px 20px;
+    margin:20px 0px 36px 0px;
+`
+const StoreImgWrap = styled.div`
+    width: 100%;
+    height: 260px;
+    position: relative;
+    background-color: aqua;
+`
 
+const StoreProfile = styled.img`
+    width: 80px;
+    height: 80px;
+    object-fit: cover;
+    border: 5px solid #ffffff;
+    /* background-image: url("/LikeBlue.png"); */
+    position: absolute;
+    left: 20px;
+    bottom: 0;
+    transform: translateY(50%);
+    border-radius: 40px;
+
+`
 
 function StoreDetailPage(props) {
 
@@ -95,23 +124,26 @@ function StoreDetailPage(props) {
         <Wrapper>
             <FixedTop />
             <Header backLink="/" headerTitle={state.name}></Header>
+            <StoreImgWrap>
+                <StoreBanner src={state.storeImage}></StoreBanner>
+                <StoreProfile src={state.storeImage}></StoreProfile>
 
-            <StoreBanner src={state.storeImage}></StoreBanner>
+            </StoreImgWrap>
 
             <ContentsArea>
                 {/* 유틸 */}
                 <UtilContentArea>
 
-                <StoreTItle>{state.name + " " + state.branchName}</StoreTItle>
-                <LikeContainer>
-                    <Icon src={"/LikeBlue.png"}></Icon>
-                    <Numb>132</Numb>
-                </LikeContainer>
-                <PostingCount>23명의 포스팅</PostingCount>
+                    <StoreTItle>{state.name + " " + state.branchName}</StoreTItle>
+                    <LikeContainer>
+                        <Icon src={"/LikeBlue.png"}></Icon>
+                        <Numb>132</Numb>
+                    </LikeContainer>
+                    <PostingCount>23명의 포스팅</PostingCount>
 
-                <DivideLine></DivideLine>
+                    <DivideLine></DivideLine>
 
-                <StoreUtilMenu></StoreUtilMenu>
+                    <StoreUtilMenu></StoreUtilMenu>
 
                 </UtilContentArea>
 
@@ -119,22 +151,25 @@ function StoreDetailPage(props) {
 
                 {/* 가게정보 */}
                 <StoreInfoArea>
-                <StoreInfo src={posIcon} content="경기 시흥시 중심상가1길 18 주차타워"></StoreInfo>
-                <StoreInfo src={timeIcon} content="월 09:00 ~ 익일 1:00"></StoreInfo>
-                <StoreInfo src={infoIcon} content="예약가능, 주차가능"></StoreInfo>
+                    <StoreInfo src={posIcon} content="경기 시흥시 중심상가1길 18 주차타워"></StoreInfo>
+                    <StoreInfo src={timeIcon} content="월 09:00 ~ 익일 1:00"></StoreInfo>
+                    <StoreInfo src={infoIcon} content="예약가능, 주차가능"></StoreInfo>
                 </StoreInfoArea>
 
                 <DividedDiv></DividedDiv>
 
                 {/* 음식 메뉴 */}
                 {state.menus[0].menuName !== "" &&  // 가맹점에 메뉴가 없을때
-                <StoreMenuArea>
-                    <StoreList menus={state.menus}></StoreList>
+                    <StoreMenuArea2>
+                        <StoreMenuArea>
+                            <StoreList menus={state.menus}></StoreList>
 
-                </StoreMenuArea>
+                        </StoreMenuArea>
+                    </StoreMenuArea2>
+
                 }
             </ContentsArea>
-            
+
             <Navigation></Navigation>
         </Wrapper>
 
