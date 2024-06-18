@@ -150,6 +150,13 @@ const CustomDot = styled.ul`
     padding: 0;
 `;
 
+const DateText = styled.p`
+    font-size: 12px;
+    font-weight: bold;
+    color: #666666;
+    margin-bottom:20px;
+`;
+
 const Dot = styled.li`
     width: 10px !important; /* Adjust the width */
     height: 10px !important; /* Adjust the height */
@@ -258,6 +265,7 @@ function PostDetailPage(props) {
 
                 {/* Title */}
                 <PostTitle>{state.title}</PostTitle>
+                <DateText>{state.year}.{state.month}.{state.day}</DateText>
                 <LocationInfo onClick={function () {
                     navigation('/store/' + storeData.id, { state: storeData })
                 }}>
