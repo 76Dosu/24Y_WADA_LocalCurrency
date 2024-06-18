@@ -42,6 +42,7 @@ const PhoneUtil = styled.img`
 
     &:last-child {
         margin-right:0;
+        width: 24px;
     }
 `
 
