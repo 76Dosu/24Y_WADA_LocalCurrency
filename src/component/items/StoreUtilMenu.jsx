@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import styled from "styled-components";
+import { useNavigate } from "react-router-dom";
 
 // 이미지 임포트
 import favoriteIcon from "../../images/favorite.png";
@@ -37,6 +38,7 @@ const UtilText = styled.p`
 function StoreUtilMenu({ onLikeClick }) {
     const [isFavoriteActive, setIsFavoriteActive] = useState(false);
     const [isLikeActive, setIsLikeActive] = useState(false);
+    const navigate = useNavigate();
 
     const handleFavoriteClick = () => {
         setIsFavoriteActive(!isFavoriteActive);
@@ -57,7 +59,7 @@ function StoreUtilMenu({ onLikeClick }) {
                 <UtilIcon src={isLikeActive ? likeIconActive : likeIcon} />
                 <UtilText>좋아요</UtilText>
             </UtilContent>
-            <UtilContent>
+            <UtilContent onClick={() => navigate('/call')}>
                 <UtilIcon src={callIcon} />
                 <UtilText>예약/전화</UtilText>
             </UtilContent>

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 
@@ -79,6 +79,11 @@ const Advantage=styled.img`
 function BalanceFrame(props){
 
     const navigate = useNavigate()
+    const [costs, setCosts] = useState(640000);
+
+    const IncreaseCosts = () => {
+        setCosts(costs + 30000)
+    }
 
     return (
 
@@ -95,11 +100,11 @@ function BalanceFrame(props){
                 </BalanceUtilFrame>
             </TitleFrame>
             
-            <CurrencyBalance>120,000원</CurrencyBalance>
+            <CurrencyBalance>{costs.toLocaleString()}원</CurrencyBalance>
            
             <ButtonFrame>
             <Advantage src={"/advantage.png"} ></Advantage>
-                <Button background="white" color="#3182F7" width="24%" title="충전"></Button>
+                <Button onClick={IncreaseCosts} background="white" color="#3182F7" width="24%" title="충전"></Button>
                 <Button onClick={() => navigate("/Qr")} width="24%" title="결제"></Button>
             </ButtonFrame>
             
