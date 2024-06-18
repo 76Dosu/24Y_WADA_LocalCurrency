@@ -26,7 +26,6 @@ const UtilContent = styled.div`
 const UtilIcon = styled.img`
     width: 32px;
     margin-bottom: 4px;
-    cursor: pointer;
 `;
 
 const UtilText = styled.p`
@@ -50,7 +49,7 @@ function StoreUtilMenu({ onLikeClick }) {
     return (
         <Wrapper>
             <UtilContent onClick={handleFavoriteClick}>
-                <UtilIcon src={isFavoriteActive ? favoriteIconActive : favoriteIcon} />
+                <UtilIcon src={isFavoriteActive ? favoriteIcon : favoriteIconActive} />
                 <UtilText>즐겨찾기</UtilText>
             </UtilContent>
             <UtilContent onClick={handleLikeClick}>

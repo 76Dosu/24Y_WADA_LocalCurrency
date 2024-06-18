@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { GoogleMap, LoadScript, Marker, InfoWindow } from '@react-google-maps/api';
 import styled from 'styled-components';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
 
 //Compontents
 
@@ -132,6 +132,7 @@ function TestMap(props) {
     const [infoWindowPosition, setInfoWindowPosition] = useState(null);
     const [infoWindowContent, setInfoWindowContent] = useState(null);
     const [customIcon, setCustomIcon] = useState(null);
+    const navigate = useNavigate();
 
     const [bookMark, setBookmark] = useState("off")
     const navigate = useNavigate()
@@ -239,7 +240,7 @@ function TestMap(props) {
                     </>
                 )}
             </SlideUpPanel>
-        </MapContainer>
+        </MapContainer >
     );
 }
 
