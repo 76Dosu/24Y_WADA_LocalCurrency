@@ -16,6 +16,9 @@ import { useLocation, useNavigate } from "react-router-dom";
 import "slick-carousel/slick/slick.css"; 
 import "slick-carousel/slick/slick-theme.css";
 
+
+import { db } from "../../firebase.js"    // firebase 설정 가져오기
+
 const Wrapper = styled.div`
     width: 100%;
 `;
@@ -140,6 +143,8 @@ const Dot = styled.li`
 function CommunityPage(props) {
     const {state} = useLocation();
     const [images, setImages] = useState([]);
+    const [title, setTitle] = useState('');
+    const [content, setContent] = useState('');
     const [currentSlide, setCurrentSlide] = useState(0);
 
     const navigate = useNavigate();
@@ -208,14 +213,37 @@ function CommunityPage(props) {
                 <TextInputWrite
                     height={40}
                     placeholder="제목을 입력하세요"
+                    value={title}
+                    onChange={(e)=>setTitle(e.target.value)}
                 />
                 <TextInputWrite
                     height={200}
                     placeholder="내용을 입력하세요"
                     placeholderColor="#88888850"
                     placeholderFontSize="14px"
+                    value={content}
+                    onChange={(e)=>setContent(e.target.value)}
                 />
-                <Postbutton onClick={() => navigate("/postDetail")}title="포스트 작성하기"/>
+                <Postbutton onClick={function(){
+                        let timeTemp = new Date();
+                        let timeStamp = timeTemp.getTime().toString();
+                        let year = timeTemp.getFullYear();
+                        let month = timeTemp.getMonth()+1;
+                        let day = timeTemp.getDate();
+                        console.log(year+"년"+month+"월"+day+"일")
+                        db.collection('dummyData2').doc('0').collection('store').doc('kr_store_1').collection('post').doc(timeStamp).set({
+                            id: timeStamp,
+                            year: year,
+                            month: month,
+                            day: day,
+                            title: title,
+                            content: content,
+                            comments: [],
+                            like: 0,
+                            postImage: images
+                        }).then(function(){
+                            navigate('/postDetail')
+                        })}} title="포스트 작성하기"/>
             </ContentArea>
         </Wrapper>
     );
