@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
+import { useLocation } from "react-router-dom";
 
 //component
 import Navigation from "../navigation/Navigation";
@@ -7,21 +8,26 @@ import FixedTop from "../header/FixedTop";
 import Header from "../header/Header";
 import UtilFrame from "../items/PostUtilFrame";
 import PostContent from "../items/PostContent";
+import TextInput from "../ui/TextInput";
+import CommentList from "../list/CommentList";
+import Button from "../ui/Button";
 
 //image
-import RepresentImage from "../../images/testImage.png"
 
 //styled
 const Wrapper = styled.div`
     width:100%;
+    height:calc(100vh - 116px);
+    overflow: scroll;
 `
 
 const ContentArea = styled.div`
     width:100%;
+    padding:0px 20px;
 `
 
 const PostTitle = styled.p`
-    padding:20px;
+    margin:20px 0px 12px 0px;
     font-size:24px;
     font-weight:bold;
     margin-bottom:12px;
@@ -59,7 +65,26 @@ const PostContentFrame = styled.div`
     border-bottom:1px solid #dfdfdf;
 `
 
+// Comment
+const CommentArea = styled.div`
+    width:100%;
+    padding:20px;
+`
+
+const UploadComment = styled.div`
+    width:100%;
+    display:flex;
+    align-items: center;
+    justify-content: space-between;
+
+    
+`
+
 function PostDetailPage(props) {
+
+    const {state} = useLocation();
+    const [comment, setComment] = useState('');
+
 
     return (
 
@@ -70,22 +95,32 @@ function PostDetailPage(props) {
             <ContentArea>
                 
                 {/* Title */}
-                <PostTitle>뜨거운감자탕 개꿀맛쓰</PostTitle>
+                <PostTitle>{state[0]}</PostTitle>
                 <LocationInfo>
                     <Address><LocationIcon src={"/location.png"} />뜨끈이감자탕 시화이마트점</Address>
                 </LocationInfo>
 
                 {/* Image */}
-                <PostRepresentImage src={RepresentImage}></PostRepresentImage>
+                <PostRepresentImage src={state[2]}></PostRepresentImage>
 
                 {/* UtilFrame */}
                 <UtilFrame/>
 
                 <PostContentFrame>
-                    <PostContent contents="오늘은 뜨끈이 감자탕에 갔다. 맛있었다."></PostContent>
+                    <PostContent contents={state[1]}></PostContent>
                 </PostContentFrame>
             </ContentArea>
 
+            <CommentArea>
+                <CommentList></CommentList>
+
+                <UploadComment>
+                    <TextInput placeholder="댓글을 입력하세요." width="80%" onChange={(e) => setComment(e.target.value)} value={comment}></TextInput>
+                    <Button title="등록"></Button>
+                </UploadComment>
+                
+            </CommentArea>
+            
             <Navigation></Navigation>
         </Wrapper>
     

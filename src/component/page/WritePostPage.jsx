@@ -230,7 +230,7 @@ function CommunityPage(props) {
                         let year = timeTemp.getFullYear();
                         let month = timeTemp.getMonth()+1;
                         let day = timeTemp.getDate();
-                        console.log(year+"년"+month+"월"+day+"일")
+                        // console.log(year+"년"+month+"월"+day+"일")
                         db.collection('dummyData2').doc('0').collection('store').doc('kr_store_1').collection('post').doc(timeStamp).set({
                             id: timeStamp,
                             year: year,
@@ -242,7 +242,7 @@ function CommunityPage(props) {
                             like: 0,
                             postImage: images
                         }).then(function(){
-                            navigate('/postDetail')
+                            navigate(`/post/:${timeStamp}`, {state:[title, content, images, timeStamp]})
                         })}} title="포스트 작성하기"/>
             </ContentArea>
         </Wrapper>

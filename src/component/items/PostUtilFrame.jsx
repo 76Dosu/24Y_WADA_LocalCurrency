@@ -14,7 +14,7 @@ const Wrapper = styled.div`
     align-items: center;
     margin-top:16px;
 
-    gap:24px;
+    gap:16px;
 `
 
 const LikeFrame = styled.div`

@@ -176,7 +176,6 @@ function StoreItem(props) {
                     </ContentContainer>
                 </Wrapper>
             )}
-<<<<<<< Updated upstream
             {listType === '메뉴' && (
                 <MenuWrapper>
                     <PostImgBox height={heightRatio || 0}>
@@ -188,15 +187,6 @@ function StoreItem(props) {
                     </ContentContainer>
                 </MenuWrapper>
             )}
-=======
-            {/* {listType === '메뉴' && (
-                <ContentContainer>
-                    <NameText>{name|| "메뉴 이름"}</NameText>
-                    <SecondNameText>{price}</SecondNameText>
-                    <TEST src={image}></TEST>
-                </ContentContainer>
-            )} */}
->>>>>>> Stashed changes
 
 
         </>

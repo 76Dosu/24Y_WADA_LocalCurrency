@@ -55,8 +55,7 @@ function CategoryPage(props) {
     const categoryLabel = ['한식', '중식', '일식', '양식', '패스트푸드', 
     '카페', '베이커리', '편의점/마트', '의료/보건', 
     '학원/교육', '스포츠/헬스', '도서/문화', '자동차', '부동산', '평생학습기관'];
-
-
+    
     const [data, setData] = useState([]);
 
     useEffect(() => {

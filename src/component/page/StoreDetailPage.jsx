@@ -123,7 +123,7 @@ function StoreDetailPage(props) {
 
         <Wrapper>
             <FixedTop />
-            <Header backLink="/" headerTitle={state.name}></Header>
+            <Header backLink="/category" headerTitle={state.name}></Header>
             <StoreImgWrap>
                 <StoreBanner src={state.storeImage}></StoreBanner>
                 <StoreProfile src={state.storeImage}></StoreProfile>
