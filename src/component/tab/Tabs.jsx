@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
 
@@ -156,6 +157,7 @@ function Tabs(props) {
     const [mapTab, setMapTab] = useState(1);
 
     const tabContainerRef = useRef(null);
+    const navigate = useNavigate()
 
 
     const [recentVisitData, setRecentVisitData] = useState([]);
@@ -201,7 +203,9 @@ function Tabs(props) {
                                     <>
                                         {Number(item.id) === i &&
                                             <>
-                                                <StoreItem data={store} heightRatio={40} listType={'카테고리'}></StoreItem>
+                                                <StoreItem data={store} heightRatio={40} listType={'카테고리'} onClickItem={function(s){
+                                                    navigate("/store/" + s.id, {state: s})
+                                                }}></StoreItem>
 
                                             </>
                                         }

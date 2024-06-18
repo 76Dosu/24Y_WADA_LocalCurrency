@@ -77,6 +77,10 @@ function TestMap(props) {
         setCustomIcon(icon);
     };
 
+    const infoWindowOptions = {
+        disableAutoPan: true, // 자동 패닝 비활성화 (close 버튼 숨김)
+      };
+
     return (
         <MapContainer>
             <LoadScript googleMapsApiKey={process.env.REACT_APP_GOOGLE_MAPS_API_KEY} onLoad={handleLoadScript}>
@@ -99,7 +103,7 @@ function TestMap(props) {
                     ))}
                     <Marker position={center} icon={customIcon} onClick={handleCenterClick} />
                     {infoWindowPosition && (
-                        <InfoWindow position={infoWindowPosition} onCloseClick={handleMapClick}>
+                        <InfoWindow position={infoWindowPosition} options={infoWindowOptions} onCloseClick={handleMapClick}>
                             <div>{infoWindowContent}</div>
                         </InfoWindow>
                     )}
