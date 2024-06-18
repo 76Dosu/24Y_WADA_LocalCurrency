@@ -159,7 +159,7 @@ function PostDetailPage(props) {
 
         <Wrapper>
             <FixedTop />
-            <Header backLink="/community" headerTitle="" />
+            <Header backLink="/community" headerTitle="포스팅" />
 
             <ContentArea>
 
@@ -194,22 +194,19 @@ function PostDetailPage(props) {
 
                 <UploadComment>
                     <TextInput placeholder="댓글을 입력하세요." width="80%" onChange={(e) => setComment(e.target.value)} value={comment}></TextInput>
-                    <Button title="등록" onClick={function(){
-                        console.log("============댓글써지나")
-                        console.log(storeData)
-                        console.log(state.id)
+                    <Button icon={sendIcon} onClick={function(){
+                        // console.log("============댓글써지나")
+                        // console.log(storeData)
+                        // console.log(state.id)
                         let timeTemp = new Date();
                         let timeStamp = timeTemp.getTime().toString();
-                        let year = timeTemp.getFullYear();
-                        let month = timeTemp.getMonth()+1;
-                        let day = timeTemp.getDate();
                         let tempComments = state.comments
                         tempComments.push({
                             id: (state.id + '_' + timeStamp),
-                            content: comment
+                            content: comment,
                         })
                         
-                        console.log(tempComments)
+                        // console.log(tempComments)
                         db.collection('dummyData').doc(storeData.parentDocId).collection('store').doc(storeData.id).collection('post').doc(state.id).update({
                             comments: tempComments
                         }).then(function(){
