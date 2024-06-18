@@ -2,17 +2,17 @@ import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
-
 //component
 import MyStoreGrid from "../list/MyStoreGrid";
 import StoreItem from '../items/StoreItem';
 import TestMap from '../map/TestMap';
 
-import { db } from "../../firebase.js"    // firebase 설정 가져오기
+import { db } from "../../firebase.js";    // firebase 설정 가져오기
 
 //styled
 const Wrapper = styled.div`
     width: 100%;
+    position: relative;
 `;
 
 const ContentArea = styled.div`
@@ -69,7 +69,6 @@ const TabContent = styled.div`
     overflow: ${props => props.overflow || "auto"};
 `;
 
-
 const ContentWrapper = styled.div`
     width: 100%;
     padding: ${props => props.padding || "0 20px 20px 20px"} ;
@@ -100,6 +99,7 @@ const MapTab = styled.div`
     width: 100%;
     height: 40px;
 `;
+
 const MapTabCover = styled.div`
     width: 90%;
     height: 50px;
@@ -108,6 +108,7 @@ const MapTabCover = styled.div`
     border-radius: 25px;
     padding:5px;
 `;
+
 const BlueBar = styled.div`
     position: absolute;
     width: calc(50% - 5px);
@@ -119,12 +120,14 @@ const BlueBar = styled.div`
     transform: ${props => (props.active ? 'translateX(0)' : 'translateX(100%)')};
     z-index: -1;
 `;
+
 const FilterButtonContainer = styled.div`
     width: 15%;
     display: flex;
     align-items: center;
     text-align: center;
 `;
+
 const FilterButton = styled.img`
     width: 20px;
     height: 20px;
@@ -142,11 +145,80 @@ const FilterButtonCover = styled.div`
     margin-left:auto;
 `;
 
+// SlideUpPanel 스타일 정의
+const BackgroundOverlay = styled.div`
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #00000066;
+    z-index: 999; /* Ensure overlay is above other content */
+    display: ${(props) => (props.visible ? 'block' : 'none')};
+`;
+
+const SlideUpPanel = styled.div`
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 218px;
+    border-radius: 20px 20px 0px 0px;
+    background-color: white;
+    box-shadow: 0px -2px 10px rgba(0, 0, 0, 0.1);
+    transform: ${(props) => (props.visible ? 'translateY(0)' : 'translateY(100%)')};
+    transition: transform 0.3s ease-in-out;
+    padding: 20px;
+    z-index: 1000; /* Ensure SlideUpPanel is above Navigation */
+`;
+
+const SlideUpPanelTitle = styled.div`
+  font-size: 16px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 44px;
+  padding-bottom: 20px;
+`;
+
+const SlideUpPanelOff = styled.div`
+  font-size: 16px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 44px;
+  padding-top: 20px;
+  cursor: pointer; /* Add cursor pointer to indicate clickability */
+`;
+
+const SortType = styled.div`
+    display: flex;
+    gap: 30px;
+    width: 100%;
+    flex-direction: column;
+    padding-top: 20px;
+`;
+
+const SortBar = styled.div`
+    width: 100%;
+    display:flex;
+`;
+
+const SortTypeName = styled.p`
+    font-size:16px;
+    font-weight:400;
+    color:#333;
+`;
+
+const SelectIcon = styled.img`
+    margin-left: auto;
+    height: 20px;
+    width: 20px;
+`;
 
 function Tabs(props) {
     const { minWidthPer, tabType, tabList, nowState, data } = props;
     // 탭바 밑에 컨텐츠 영역 높이 조절하려면 ContentArea, TabContent 두 컴포넌트의 css 속성 height: calc() 수정해주면됨 (둘다 변경해줘야함)
-
 
     const categoryLabel = ['한식', '중식'];
 
@@ -155,31 +227,32 @@ function Tabs(props) {
 
     const [activeTab, setActiveTab] = useState(nowState || 0);
     const [mapTab, setMapTab] = useState(1);
+    const [isFilterPanelVisible, setFilterPanelVisible] = useState(false); // 필터 패널의 가시성 상태를 관리하기 위한 상태
+    const [selectedSortType, setSelectedSortType] = useState('likes'); // 체크박스 기능을 위한 상태 추가
 
     const tabContainerRef = useRef(null);
-    const navigate = useNavigate()
-
+    const navigate = useNavigate();
 
     const [recentVisitData, setRecentVisitData] = useState([]);
     const [bookMarkData, setBookMarkData] = useState([]);
 
-
     useEffect(function () {
-        let tempData = []
+        let tempData = [];
         db.collection('recentVisitStores').doc('recentVisit').get().then(function (doc) {
             const tempDocData = doc.data();
-            tempData.push(...tempDocData.recentVisitArray)
+            tempData.push(...tempDocData.recentVisitArray);
             setRecentVisitData(tempData);
-        })
-    }, [])
+        });
+    }, []);
+    
     useEffect(function () {
-        let tempData = []
+        let tempData = [];
         db.collection('bookMarkStores').doc('bookMark').get().then(function (doc) {
             const tempDocData = doc.data();
-            tempData.push(...tempDocData.bookMarkArray)
+            tempData.push(...tempDocData.bookMarkArray);
             setBookMarkData(tempData);
-        })
-    }, [])
+        });
+    }, []);
 
     useEffect(() => {
         const tabContainer = tabContainerRef.current;
@@ -190,9 +263,15 @@ function Tabs(props) {
                 // behavior: 'smooth',
             });
         }
-    }, []);
+    }, [activeTab]);
 
-    
+    const handleSortTypeClick = (sortType) => {
+        setSelectedSortType(sortType);
+    };
+
+    const handleOverlayClick = () => {
+        setFilterPanelVisible(false);
+    };
 
     const contents = tabList.map((tab, i) => (
         <>
@@ -206,9 +285,8 @@ function Tabs(props) {
                                         {Number(item.id) === i &&
                                             <>
                                                 <StoreItem data={store} heightRatio={40} listType={'카테고리'} onClickItem={function(s){
-                                                    navigate("/store/" + s.id, {state: s})
+                                                    navigate("/store/" + s.id, {state: s});
                                                 }}></StoreItem>
-
                                             </>
                                         }
                                     </>
@@ -219,20 +297,19 @@ function Tabs(props) {
                 </TabContent>
             )}
             {tabType === '나의가맹점' && (
-
                 <TabContent minheight={280} key={i}>
                     <>
                         {i === 0 &&
                             <>
                                 <MyStoreGrid data={data} tabData={bookMarkData} stores={myStoreList} onClickItem={function(s){
-                                                    navigate("/store/" + s.id, {state: s})
+                                                    navigate("/store/" + s.id, {state: s});
                                                 }}></MyStoreGrid>
                             </>
                         }
                         {i === 1 &&
                             <>
                                 <MyStoreGrid data={data} tabData={recentVisitData} stores={myStoreList} onClickItem={function(s){
-                                                    navigate("/store/" + s.id, {state: s})
+                                                    navigate("/store/" + s.id, {state: s});
                                                 }}></MyStoreGrid>
                             </>
                         }
@@ -241,6 +318,7 @@ function Tabs(props) {
             )}
         </>
     ));
+    
     const mapContents = (
         <>
             <TabContent overflow={"hidden"} minheight={350}>
@@ -251,9 +329,7 @@ function Tabs(props) {
         </>
     );
 
-
     return (
-
         <Wrapper>
             {tabType === '카테고리' && (
                 <>
@@ -284,7 +360,7 @@ function Tabs(props) {
 
                         <FilterButtonContainer>
                             <FilterButtonCover>
-                                <FilterButton src={"/filterButton.png"}></FilterButton>
+                                <FilterButton src={"/filterButton.png"} onClick={() => setFilterPanelVisible(true)}></FilterButton> {/* 필터 버튼 클릭 시 필터 패널 표시 */}
                             </FilterButtonCover>
                         </FilterButtonContainer>
                     </MapTabContainer>
@@ -322,12 +398,28 @@ function Tabs(props) {
                         </TabContentContainer>
                     </ContentArea>
                 </>
-
             )}
+
+            {/* 배경 오버레이 */}
+            <BackgroundOverlay visible={isFilterPanelVisible} onClick={handleOverlayClick} />
+
+            {/* 슬라이드업 패널 */}
+            <SlideUpPanel visible={isFilterPanelVisible}>
+                <SlideUpPanelTitle>정렬</SlideUpPanelTitle>
+                <SortType>
+                    <SortBar onClick={() => handleSortTypeClick('likes')}>
+                        <SortTypeName>좋아요 순</SortTypeName>
+                        <SelectIcon src="/check.png" style={{ display: selectedSortType === 'likes' ? 'block' : 'none' }} />
+                    </SortBar>
+                    <SortBar onClick={() => handleSortTypeClick('distance')}>
+                        <SortTypeName>거리 순</SortTypeName>
+                        <SelectIcon src="/check.png" style={{ display: selectedSortType === 'distance' ? 'block' : 'none' }} />
+                    </SortBar>
+                </SortType>
+                <SlideUpPanelOff onClick={() => setFilterPanelVisible(false)}>닫기</SlideUpPanelOff> {/* 닫기 버튼 클릭 시 패널 숨기기 */}
+            </SlideUpPanel>
         </Wrapper>
-
-    )
-
+    );
 }
 
 export default Tabs;
