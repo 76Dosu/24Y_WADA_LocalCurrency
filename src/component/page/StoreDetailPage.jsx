@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { useNavigate, useLocation } from "react-router-dom";
+import { db } from "../../firebase.js";    // firebase 설정 가져오기
 
 // 이미지
 import posIcon from "../../images/map.png";
@@ -123,30 +124,50 @@ function StoreDetailPage(props) {
     const { state } = useLocation();
     const navigate = useNavigate();
     const [likeCount, setLikeCount] = useState(132);
+    
+    const [isBook, setIsBook] = useState(state[1]);
 
     const handleLikeClick = (isLiked) => {
         setLikeCount(likeCount + (isLiked ? -1 : 1));
     };
 
+    const [bookMarkArray, setBookMarkArray] = useState([])
+
+    useEffect(function () {
+        db.collection('bookMarkStores').doc('bookMark').get().then(function (doc) {
+            const tempQueData = doc.data();
+
+            const bookArray = tempQueData.bookMarkArray || []; // 기본값으로 빈 배열 설정
+
+            setBookMarkArray(bookArray);
+        })
+    }, []) // 빈 배열 꼭 추가
+
+    useEffect(() => {
+        if (bookMarkArray.includes(state[0].name + "_" + state[0].branchName)) {
+            setIsBook(true);
+        } 
+    }, [bookMarkArray, state]); // bookMarkArray와 data가 변경될 때마다 실행
+
     return (
         <Wrapper>
             <FixedTop />
-            <Header backLink="/category" headerTitle={state.name}></Header>
+            <Header backLink="/category" headerTitle={state[0].name}></Header>
             <StoreImgWrap>
-                <StoreBanner src={state.storeImage}></StoreBanner>
-                <StoreProfile src={state.storeImage}></StoreProfile>
+                <StoreBanner src={state[0].storeImage}></StoreBanner>
+                <StoreProfile src={state[0].storeImage}></StoreProfile>
             </StoreImgWrap>
 
             <ContentsArea>
                 <UtilContentArea>
-                    <StoreTitle>{state.name + " " + state.branchName}</StoreTitle>
+                    <StoreTitle>{state[0].name + " " + state[0].branchName}</StoreTitle>
                     <LikeContainer>
                         <Icon src={"/LikeBlue.png"}></Icon>
                         <Numb>{likeCount}</Numb>
                     </LikeContainer>
                     <PostingCount>23명의 포스팅</PostingCount>
                     <DivideLine></DivideLine>
-                    <StoreUtilMenu onLikeClick={handleLikeClick}></StoreUtilMenu>
+                    <StoreUtilMenu data={state[0]} isBook={isBook} onLikeClick={handleLikeClick}></StoreUtilMenu>
                 </UtilContentArea>
 
                 <DividedDiv></DividedDiv>
@@ -159,18 +180,18 @@ function StoreDetailPage(props) {
 
                 <DividedDiv></DividedDiv>
 
-                {state.menus[0].menuName !== "" && (
+                {state[0].menus[0].menuName !== "" && (
                     <StoreMenuArea2>
                         <StoreMenuArea>
-                            <StoreList menus={state.menus}></StoreList>
+                            <StoreList menus={state[0].menus}></StoreList>
                         </StoreMenuArea>
                     </StoreMenuArea2>
 
                 )}
                 {console.log("state==================================================")}
-                {console.log(state.posts)}
+                {console.log(state[0].posts)}
                 <PostContainer>
-                    <PostList storePosts={state.posts} onClickItem={(p) => { navigate('/post/' + p.id, { state: p }) }} />
+                    <PostList storePosts={state[0].posts} onClickItem={(p) => { navigate('/post/' + p.id, { state: p }) }} />
                 </PostContainer>
 
             </ContentsArea>

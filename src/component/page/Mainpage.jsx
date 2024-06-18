@@ -54,7 +54,7 @@ function MainPage(props) {
     useEffect(() => {
         const timer = setInterval(() => {
             setCurrentImageIndex((prevIndex) => (prevIndex + 1) % bannerImages.length);
-        }, 3000);
+        }, 2200);
 
         return () => clearInterval(timer);
     }, [bannerImages.length]);

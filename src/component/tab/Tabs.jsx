@@ -284,8 +284,8 @@ function Tabs(props) {
                                     <>
                                         {Number(item.id) === i &&
                                             <>
-                                                <StoreItem data={store} heightRatio={40} listType={'카테고리'} onClickItem={function(s){
-                                                    navigate("/store/" + s.id, {state: s});
+                                                <StoreItem data={store} heightRatio={40} listType={'카테고리'} onClickItem={function(s, is){
+                                                    navigate("/store/" + s.id, {state: [s, is]});
                                                 }}></StoreItem>
                                             </>
                                         }
@@ -302,14 +302,14 @@ function Tabs(props) {
                         {i === 0 &&
                             <>
                                 <MyStoreGrid data={data} tabData={bookMarkData} stores={myStoreList} onClickItem={function(s){
-                                                    navigate("/store/" + s.id, {state: s});
+                                                    navigate("/store/" + s.id, {state: [s, 1]});
                                                 }}></MyStoreGrid>
                             </>
                         }
                         {i === 1 &&
                             <>
                                 <MyStoreGrid data={data} tabData={recentVisitData} stores={myStoreList} onClickItem={function(s){
-                                                    navigate("/store/" + s.id, {state: s});
+                                                    navigate("/store/" + s.id, {state: [s, 0]});
                                                 }}></MyStoreGrid>
                             </>
                         }

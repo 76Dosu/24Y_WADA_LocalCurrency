@@ -1,6 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
+import { db } from "../../firebase.js";    // firebase 설정 가져오기
 
 const Wrapper = styled.div`
     width: 100%;
@@ -118,9 +119,28 @@ const LastIcon = styled(Icon)`
 function StoreItem(props) {
 
     const { listType, heightRatio, store, data, onClickItem } = props;
-    const [bookMark, setBookmark] = useState('off');
+    const [isBook, setIsBook] = useState(false);
 
     const navigate = useNavigate()
+    const [bookMarkArray, setBookMarkArray] = useState([])
+
+    useEffect(function () {
+        db.collection('bookMarkStores').doc('bookMark').get().then(function (doc) {
+            const tempQueData = doc.data();
+
+            const bookArray = tempQueData.bookMarkArray || []; // 기본값으로 빈 배열 설정
+
+            setBookMarkArray(bookArray);
+        })
+    }, []) // 빈 배열 꼭 추가
+
+    useEffect(() => {
+        if (bookMarkArray.includes(data.name + "_" + data.branchName)) {
+            setIsBook(true);
+        } else {
+            setIsBook(false);
+        }
+    }, [bookMarkArray, data]); // bookMarkArray와 data가 변경될 때마다 실행
 
     return (
 
@@ -128,7 +148,7 @@ function StoreItem(props) {
         //나중에 파이어베이스 연결해줘서 맞춰야할 듯
         <>
             {listType === '카테고리' && (
-                <Wrapper onClick={() => onClickItem(data)}>
+                <Wrapper onClick={() => onClickItem(data, isBook)}>
                     <PostImgBox height={heightRatio || 80}>
                         <PostImg src={data.storeImage + ".png"}></PostImg>
                     </PostImgBox>
@@ -153,11 +173,16 @@ function StoreItem(props) {
                                 <UserImg src={"/sampleImg1.png"}></UserImg>
                             </UserImgBox>
                             <Numb>+2</Numb>
-                            {bookMark === 'on' && (
+                            {/* {bookMark === 'on' && (
                                 <LastIcon onClick={() => setBookmark('off')} src={"/StarOn.png"}></LastIcon>
                             )}
                             {bookMark === 'off' && (
                                 <LastIcon onClick={() => setBookmark('on')} src={"/StarOff.png"}></LastIcon>
+                            )} */}
+                            {isBook ? (
+                                <LastIcon src={"/StarOn.png"} />
+                            ) : (
+                                <LastIcon src={"/StarOff.png"} />
                             )}
                         </StateContainer>
                     </ContentContainer>

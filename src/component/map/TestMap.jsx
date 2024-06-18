@@ -135,7 +135,6 @@ function TestMap(props) {
     const navigate = useNavigate();
 
     const [bookMark, setBookmark] = useState("off")
-    const navigate = useNavigate()
 
     const handleMarkerClick = (location) => {
         setSelectedLocation(location);

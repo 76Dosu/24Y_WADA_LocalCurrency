@@ -1,6 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
+import { db } from "../../firebase.js";    // firebase 설정 가져오기
 
 // 이미지 임포트
 import favoriteIcon from "../../images/favorite.png";
@@ -34,24 +35,74 @@ const UtilText = styled.p`
     color: #555;
 `;
 
-function StoreUtilMenu({ onLikeClick }) {
-    const [isFavoriteActive, setIsFavoriteActive] = useState(false);
+function StoreUtilMenu(props) {
+    const { data, isBook, onLikeClick } = props;
+    const [isFavoriteActive, setIsFavoriteActive] = useState(isBook);
     const [isLikeActive, setIsLikeActive] = useState(false);
     const navigate = useNavigate();
+    const [bookMarkArray, setBookMarkArray] = useState([])
 
-    const handleFavoriteClick = () => {
-        setIsFavoriteActive(!isFavoriteActive);
-    };
+    useEffect(function () {
+        db.collection('bookMarkStores').doc('bookMark').get().then(function (doc) {
+            const tempQueData = doc.data();
+
+            const bookArray = tempQueData.bookMarkArray || []; // 기본값으로 빈 배열 설정
+
+            setBookMarkArray(bookArray);
+        })
+    }, [bookMarkArray]) // 빈 배열 꼭 추가
+
 
     const handleLikeClick = () => {
         setIsLikeActive(!isLikeActive);
         onLikeClick(isLikeActive); // 부모 컴포넌트에 상태 전달
     };
 
+
+    const removeFromBookMarkArray = async (valueToRemove) => {
+        try {
+            // Firestore에서 기존 배열 가져오기
+            const docRef = db.collection('bookMarkStores').doc('bookMark');
+            const docSnapshot = await docRef.get();
+
+            if (docSnapshot.exists) {
+                const data = docSnapshot.data();
+                const bookMarkArray = data.bookMarkArray;
+
+                // 특정 값을 배열에서 제거
+                const updatedArray = bookMarkArray.filter(item => item !== valueToRemove);
+
+                // Firestore에 업데이트된 배열 저장
+                await docRef.set({ bookMarkArray: updatedArray });
+
+                // 상태 업데이트 (필요시)
+                setIsFavoriteActive(!isFavoriteActive);
+            } else {
+                console.log('Document does not exist.');
+            }
+        } catch (error) {
+            console.error('Error removing value from array: ', error);
+        }
+    };
+
     return (
         <Wrapper>
-            <UtilContent onClick={handleFavoriteClick}>
-                <UtilIcon src={isFavoriteActive ? favoriteIcon : favoriteIconActive} />
+            <UtilContent onClick={function () {
+                if (!isFavoriteActive) {
+                    const addUpdatedArray = [...bookMarkArray, data.name + "_" + data.branchName];
+                    db.collection('bookMarkStores').doc('bookMark').set({
+                        bookMarkArray: addUpdatedArray
+                    }).then(function () {
+                        setIsFavoriteActive(!isFavoriteActive);
+                    })
+                }
+                else {
+                    const valueToRemove = data.name + "_" + data.branchName;
+                    removeFromBookMarkArray(valueToRemove);
+                }
+
+            }}>
+                <UtilIcon src={isFavoriteActive ? favoriteIcon : favoriteIconActive } />
                 <UtilText>즐겨찾기</UtilText>
             </UtilContent>
             <UtilContent onClick={handleLikeClick}>

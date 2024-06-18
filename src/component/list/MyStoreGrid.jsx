@@ -24,7 +24,7 @@ const SGrid = styled.div`
 
 function MyStoreGrid(props) {
     const { data, tabData, onClickItem } = props;
-
+    const is = false;
 
     const storesList = ['뜨끈이감자탕', '생금마을', '카페39'];
     return (
