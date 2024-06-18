@@ -4,6 +4,9 @@ import styled from 'styled-components';
 
 //Compontents
 
+//image
+import dummyImage from "../../images/dummyImage.png"
+
 // 스타일 정의
 const MapContainer = styled.div`
   width: 100%;
@@ -28,7 +31,7 @@ const SlideUpPanel = styled.div`
   bottom: 0;
   left: 0;
   width: 100%;
-  height: 300px;
+  height: 320px;
   border-radius: 20px;
   background-color: white;
   box-shadow: 0px -2px 10px rgba(0, 0, 0, 0.1);
@@ -100,6 +103,24 @@ const mapOptions = {
     fullscreenControl: false // 전체화면 컨트롤 비활성화
 };
 
+const StoreImageFrame = styled.div`
+    width:100%;
+    height:100px;
+    margin-bottom:8px;
+
+    overflow-x: auto;
+    display:flex;
+`
+
+const ImageScroll = styled.div`
+    display: flex;
+    width: 100%;
+`
+
+const DummyImage = styled.img`
+    height:100%;
+    margin-right:12px;
+`
 
 function TestMap(props) {
     const { data, nowTabIndex } = props;
@@ -177,6 +198,16 @@ function TestMap(props) {
                     <>
                         <SwipeBar></SwipeBar>
 
+                        <StoreImageFrame>
+                            <ImageScroll>
+                                <DummyImage src={dummyImage}></DummyImage>
+                                <DummyImage src={dummyImage}></DummyImage>
+                                <DummyImage src={dummyImage}></DummyImage>
+                                <DummyImage src={dummyImage}></DummyImage>
+                            </ImageScroll>
+                            
+                        </StoreImageFrame>
+
                         <StoreTitle>
                             <StoreName>{selectedLocation.name}</StoreName>
                             <StorePos>{selectedLocation.branchName}</StorePos>
@@ -195,8 +226,7 @@ function TestMap(props) {
                             {bookMark==='off' && (
                                 <LastIcon onClick={() => setBookmark('on')} src={"/StarOff.png"}></LastIcon>
                             )}
-                        </StoreInfo>
-                        
+                        </StoreInfo>             
                     </>
                 )}
             </SlideUpPanel>
