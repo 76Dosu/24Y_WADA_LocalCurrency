@@ -112,7 +112,7 @@ const StoreProfile = styled.img`
     border-radius: 40px;
 `;
 
-`
+
 
 const PostContainer = styled.div`
     width:100%;
@@ -166,7 +166,7 @@ function StoreDetailPage(props) {
                         </StoreMenuArea>
                     </StoreMenuArea2>
 
-                }
+                )}
                 {console.log("state==================================================")}
                 {console.log(state.posts)}
                 <PostContainer>
