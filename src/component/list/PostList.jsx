@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import PostItem from "../page/PostItem";
+import PostItem from "../items/PostItem";
 
 const Wrapper = styled.div`
     display:flex;
