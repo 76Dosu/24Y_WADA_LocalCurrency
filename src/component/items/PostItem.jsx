@@ -1,5 +1,7 @@
+// PostItem.jsx 파일
 import React from "react";
 import styled from "styled-components";
+import UtilFrame from "../items/PostUtilFrame";
 
 const Wrapper = styled.div`
     width: 100%;
@@ -9,10 +11,10 @@ const Wrapper = styled.div`
     justify-content: center;
     padding-inline: 20px;
     padding-block: 12px;
-    background-color: #FFFFFF;
+    background-color: #ffffff;
 
     &:last-child {
-        margin-bottom:0px;
+        margin-bottom: 114px;
     }
     /* border-bottom: 2px solid #DFDFDF; */
 `;
@@ -31,11 +33,11 @@ const TitleText = styled.p`
 `;
 
 const UserImgBox = styled.div`
-    width: 20px; 
+    width: 20px;
     height: 20px;
     overflow: hidden;
     position: relative;
-    border-radius:10px;
+    border-radius: 10px;
     margin-block: 10px;
 `;
 const UserImg = styled.img`
@@ -61,11 +63,11 @@ const DateText = styled.p`
 `;
 
 const PostImgBox = styled.div`
-    width: 100%; 
+    width: 100%;
     padding-bottom: 100%; /* 높이를 너비의 100%로 설정하여 정사각형 유지 */
     overflow: hidden;
     position: relative;
-    border-radius:8px;
+    border-radius: 8px;
     margin-block: 10px;
 `;
 const PostImg = styled.img`
@@ -78,13 +80,6 @@ const PostImg = styled.img`
     transform: translate(-50%, -50%);
 `;
 
-const IconBox = styled.div`
-    width: 100%; 
-    display: flex;
-    align-items: center;
-    gap: 10px;
-`;
-
 const Icon = styled.img`
     width: 24px;
     height: 24px;
@@ -95,14 +90,7 @@ const DecoIcon = styled(Icon)`
     margin-left: auto;
 `;
 
-const NumbText = styled.p`
-    font-size: 15px;
-    font-weight: bold;
-    color: #585858;
-`;
-
 function PostItem(props) {
-    // 
     const { post, onClick } = props;
 
     return (
@@ -112,26 +100,26 @@ function PostItem(props) {
                     <UserImg src={"/sampleImg1.png"}></UserImg>
                 </UserImgBox>
                 <UserNameText>김리뷰</UserNameText>
-                <DateText>{post.year}.{post.month}.{post.day}</DateText>
+                <DateText>
+                    {post.year}.{post.month}.{post.day}
+                </DateText>
                 <DecoIcon src={"/decoButton.png"}></DecoIcon>
             </PostHeader>
             <TitleText>{post.title} ···</TitleText>
             <PostImgBox>
-                {typeof(post.postImage) === "string" &&
+                {typeof post.postImage === "string" && (
                     <PostImg src={post.postImage}></PostImg>
-                }
-                {Array.isArray(post.postImage) &&
+                )}
+                {Array.isArray(post.postImage) && (
                     <PostImg src={post.postImage[0]}></PostImg>
-                }
+                )}
             </PostImgBox>
-            <IconBox>
-                <Icon src={"/like.png"}></Icon>
-                <NumbText>{post.like}</NumbText>
-                <Icon src={"/comment.png"}></Icon>
-                <NumbText>49</NumbText>
-            </IconBox>
+            <UtilFrame
+                likes={post.like} // likes 수를 props로 전달
+                comments={post.comments.length} // comments 수를 props로 전달
+            />
         </Wrapper>
-    )
+    );
 }
 
 export default PostItem;

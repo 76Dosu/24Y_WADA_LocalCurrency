@@ -9,6 +9,9 @@ import styled from "styled-components";
 const PostContentText = styled.p`
     font-size:16px;
     font-weight:400;
+    line-height:1.4;
+    color:#333;
+    text-align:justify;
 `
 
 function PostContent(props){
