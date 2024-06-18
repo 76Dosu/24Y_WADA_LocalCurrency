@@ -1,10 +1,11 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 
 // compotents
 
 // image
 import likeIcon from "../../images/like.png"
+import likeIconActive from "../../images/likeF_active.png";
 import commentIcon from "../../images/comment.png"
 
 // styled
@@ -51,13 +52,21 @@ const CommentText = styled.p`
 
 function UtilFrame(props){
 
+    const [isLikeActive, setIsLikeActive] = useState(false);
+
+    const handleLikeClick = () => {
+        setIsLikeActive(!isLikeActive);
+    };
 
     return (
 
         <Wrapper>
             <LikeFrame>
-                <LikeIcon src={likeIcon}></LikeIcon>
-                <LikeText>35</LikeText>
+                <LikeIcon onClick={handleLikeClick} src={isLikeActive ? likeIconActive : likeIcon}></LikeIcon>
+                
+                {isLikeActive === false && <LikeText>35</LikeText>}
+                {isLikeActive == true && <LikeText>36</LikeText>}
+                
             </LikeFrame>
             <CommnetFrame>
                 <CommentIcon src={commentIcon}></CommentIcon>
