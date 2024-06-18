@@ -11,17 +11,34 @@ const Wrapper = styled.div`
     
 `
 
-function PostList(props){
+function PostList(props) {
 
     const { posts, onClickItem } = props;
 
+    const postData = [];
+
+    posts.map((item) => (
+        <>
+            {item.stores && item.stores.map(store => (
+                <>
+                    {store.posts && store.posts.map(post => (
+                        <>
+                            {postData.push(post)}
+                        </>
+                    ))}
+                </>
+            ))}
+        </>
+    ))
+
     return (
         <Wrapper>
-            {posts.map((post, index)=>{
-                return(
-                    <PostItem key={post.id} post={post} onClick={()=>onClickItem(post)}></PostItem>
+            {postData.map((post, index) => {
+                return (
+                    <PostItem key={post.id} post={post} onClick={() => onClickItem(post)}></PostItem>
                 )
             })}
+            
         </Wrapper>
     );
 

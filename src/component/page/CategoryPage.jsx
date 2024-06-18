@@ -58,60 +58,58 @@ function CategoryPage(props) {
     
     const [data, setData] = useState([]);
 
+ 
+
     useEffect(() => {
+        console.log("start");
         const fetchData = async () => {
-            let tempData = [];
-            let collectionName = "dummyData2"
-
-            // Get the top-level collection 'dummyData1'
+          let tempData = [];
+          const collectionName = "dummyData2";
+    
+          try {
+            // Get the top-level collection 'dummyData2'
             const snapshot = await db.collection(collectionName).get();
-
-            // Iterate through each document in 'dummyData1'
-            for (const doc of snapshot.docs) {
-                let docData = { id: doc.id, ...doc.data() };
-
-                // Get 'store' subcollection for each document
-                const storeSnapshot = await db.collection(collectionName).doc(doc.id).collection('store').get();
-                let stores = [];
-
-                // Iterate through each document in 'store' subcollection
-                for (const storeDoc of storeSnapshot.docs) {
-                    let storeData = { id: storeDoc.id, ...storeDoc.data() };
-
-                    // Get 'menu' subcollection for each 'store' document
-                    const menuSnapshot = await db.collection(collectionName).doc(doc.id)
-                        .collection('store').doc(storeDoc.id).collection('menu').get();
-                    let menus = [];
-
-                    // Iterate through each document in 'menu' subcollection
-                    for (const menuDoc of menuSnapshot.docs) {
-                        menus.push({ id: menuDoc.id, ...menuDoc.data() });
-                    }
-                    storeData.menus = menus;
-
-                    // Get 'post' subcollection for each 'store' document
-                    const postSnapshot = await db.collection(collectionName).doc(doc.id)
-                        .collection('store').doc(storeDoc.id).collection('post').get();
-                    let posts = [];
-
-                    // Iterate through each document in 'post' subcollection
-                    for (const postDoc of postSnapshot.docs) {
-                        posts.push({ id: postDoc.id, ...postDoc.data() });
-                    }
-                    storeData.posts = posts;
-
-                    stores.push(storeData);
-                }
-
-                docData.stores = stores;
-                tempData.push(docData);
-            }
-
+    
+            // Process each document in 'dummyData2'
+            const promises = snapshot.docs.map(async doc => {
+              let docData = { id: doc.id, ...doc.data() };
+    
+              // Get 'store' subcollection for each document
+              const storeSnapshot = await db.collection(collectionName).doc(doc.id).collection('store').get();
+              
+              // Process each document in 'store' subcollection
+              const storePromises = storeSnapshot.docs.map(async storeDoc => {
+                let storeData = { id: storeDoc.id, ...storeDoc.data() };
+    
+                // Get 'menu' subcollection for each 'store' document
+                const menuSnapshot = await db.collection(collectionName).doc(doc.id)
+                  .collection('store').doc(storeDoc.id).collection('menu').get();
+                let menus = menuSnapshot.docs.map(menuDoc => ({ id: menuDoc.id, ...menuDoc.data() }));
+                storeData.menus = menus;
+    
+                // Get 'post' subcollection for each 'store' document
+                const postSnapshot = await db.collection(collectionName).doc(doc.id)
+                  .collection('store').doc(storeDoc.id).collection('post').get();
+                let posts = postSnapshot.docs.map(postDoc => ({ id: postDoc.id, ...postDoc.data() }));
+                storeData.posts = posts;
+    
+                return storeData;
+              });
+    
+              docData.stores = await Promise.all(storePromises);
+              return docData;
+            });
+    
+            tempData = await Promise.all(promises);
             setData(tempData);
+            console.log("finish");
+          } catch (error) {
+            console.error("Error fetching data: ", error);
+          }
         };
-
+    
         fetchData();
-    }, []);
+      }, []);
 
     return (
 

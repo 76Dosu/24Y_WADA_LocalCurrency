@@ -240,7 +240,8 @@ function CommunityPage(props) {
                             content: content,
                             comments: [],
                             like: 0,
-                            postImage: images
+                            postImage: images,
+                            storeId: "가맹점Id"
                         }).then(function(){
                             navigate(`/post/:${timeStamp}`, {state:[title, content, images, timeStamp]})
                         })}} title="포스트 작성하기"/>

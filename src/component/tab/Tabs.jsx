@@ -192,6 +192,8 @@ function Tabs(props) {
         }
     }, []);
 
+    
+
     const contents = tabList.map((tab, i) => (
         <>
             {tabType === '카테고리' && (

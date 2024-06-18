@@ -24,14 +24,14 @@ const KateGrid = styled.div`
 
 function CateGrid(props) {
 
-    const { categories, onClickItem } = props;
+    const { data, categories, onClickItem } = props;
 
     
     return (
         <Wrapper>
             <KateGrid>
             {categories.map((label, index) => (
-                <CategoryGridItem key={index} index={index} label={label} onClick={()=>onClickItem(index)}></CategoryGridItem>
+                <CategoryGridItem key={index} index={index} label={label} onClick={()=>onClickItem( index)}></CategoryGridItem>
                 ))}
             </KateGrid>
         </Wrapper>

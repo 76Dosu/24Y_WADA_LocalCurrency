@@ -1,6 +1,10 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { useLocation } from "react-router-dom";
+
+import { db } from "../../firebase.js"    // firebase 설정 가져오기
+import { useNavigate } from "react-router-dom";
+
 
 //component
 import Navigation from "../navigation/Navigation";
@@ -13,6 +17,8 @@ import CommentList from "../list/CommentList";
 import Button from "../ui/Button";
 
 //image
+import RepresentImage from "../../images/testImage.png"
+import { useLocation } from "react-router-dom";
 
 //styled
 const Wrapper = styled.div`
@@ -82,9 +88,49 @@ const UploadComment = styled.div`
 
 function PostDetailPage(props) {
 
-    const {state} = useLocation();
-    const [comment, setComment] = useState('');
+    const { state } = useLocation();
+    const navigation = useNavigate();
 
+    const [storeData, setStoreData] = useState(null);
+    const postIdToFind = state.id; // 찾아야 할 post의 ID
+
+    useEffect(() => {
+        const findStoreByPostId = async (postId) => {
+            const collectionName = 'dummyData2';
+
+            try {
+                // Get the top-level collection 'dummyData2'
+                const snapshot = await db.collection(collectionName).get();
+
+                for (const doc of snapshot.docs) {
+                    // Get 'store' subcollection for each document
+                    const storeSnapshot = await db.collection(collectionName).doc(doc.id).collection('store').get();
+
+                    for (const storeDoc of storeSnapshot.docs) {
+                        // Get 'post' subcollection for each 'store' document
+                        const postSnapshot = await db.collection(collectionName).doc(doc.id)
+                            .collection('store').doc(storeDoc.id).collection('post').where('id', '==', postId).get();
+
+                        if (!postSnapshot.empty) {
+                            // Post found, return the store document data
+                            return { id: storeDoc.id, ...storeDoc.data() };
+                        }
+                    }
+                }
+                return null; // Post not found
+            } catch (error) {
+                console.error("Error finding store by post ID: ", error);
+                return null;
+            }
+        };
+
+        const fetchStoreData = async () => {
+            const data = await findStoreByPostId(postIdToFind);
+            setStoreData(data);
+        };
+
+        fetchStoreData();
+    }, []);
 
     return (
 
@@ -93,21 +139,28 @@ function PostDetailPage(props) {
             <Header backLink="/community" headerTitle="글 쓴거 제목" />
 
             <ContentArea>
-                
+
                 {/* Title */}
-                <PostTitle>{state[0]}</PostTitle>
-                <LocationInfo>
-                    <Address><LocationIcon src={"/location.png"} />뜨끈이감자탕 시화이마트점</Address>
+                <PostTitle>{state.title}</PostTitle>
+                <LocationInfo onClick={function () {
+                    navigation('/store/' + storeData.id, { state: storeData })
+                }}>
+                    {storeData ? (
+                        <Address><LocationIcon src={"/location.png"} />{storeData.name || ""}_{storeData.branchName || ""}</Address>
+                    ) : (
+                        <Address><LocationIcon src={"/location.png"} />loading...</Address>
+                    )}
+                    
                 </LocationInfo>
 
                 {/* Image */}
-                <PostRepresentImage src={state[2]}></PostRepresentImage>
+                <PostRepresentImage src={state.postImage}></PostRepresentImage>
 
                 {/* UtilFrame */}
-                <UtilFrame/>
+                <UtilFrame />
 
                 <PostContentFrame>
-                    <PostContent contents={state[1]}></PostContent>
+                    <PostContent contents={state.content}></PostContent>
                 </PostContentFrame>
             </ContentArea>
 
@@ -123,7 +176,7 @@ function PostDetailPage(props) {
             
             <Navigation></Navigation>
         </Wrapper>
-    
+
     )
 
 }

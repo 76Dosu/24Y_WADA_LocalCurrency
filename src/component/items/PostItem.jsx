@@ -102,22 +102,22 @@ function PostItem(props){
     const {post, onClick} = props;
 
     return (
-        <Wrapper >
+        <Wrapper onClick={onClick}>
             <PostHeader>
                 <UserImgBox>
                     <UserImg src={"/sampleImg1.png"}></UserImg>
                 </UserImgBox>
                 <UserNameText>김리뷰</UserNameText>
-                <DateText>2024.06.24</DateText>
+                <DateText>{post.year}.{post.month}.{post.day}</DateText>
                 <DecoIcon src={"/decoButton.png"}></DecoIcon>
             </PostHeader>
-            <TitleText>분위기 좋은 곳에서 먹는 맛있는 브런치 ···</TitleText>
+            <TitleText>{post.title} ···</TitleText>
             <PostImgBox>
-                <PostImg src={"/sampleImg1.png"}></PostImg>
+                <PostImg src={post.postImage}></PostImg>
             </PostImgBox>
             <IconBox>
                 <Icon src={"/like.png"}></Icon>
-                <NumbText>234</NumbText>
+                <NumbText>{post.like}</NumbText>
                 <Icon src={"/comment.png"}></Icon>
                 <NumbText>49</NumbText>
             </IconBox>
