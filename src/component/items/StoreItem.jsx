@@ -106,7 +106,7 @@ const TEST = styled.img`
 
 function StoreItem(props){
     
-    const {listType, heightRatio , data, name, price, image} = props;
+    const {listType, heightRatio ,store, data, onClickItem} = props;
     const [bookMark, setBookmark] = useState('off');
 
     const navigate = useNavigate()
@@ -115,7 +115,7 @@ function StoreItem(props){
         
         //우선은 클릭 시 가맹점 상세페이지로 이동
         //나중에 파이어베이스 연결해줘서 맞춰야할 듯
-        <Wrapper onClick={(e) => navigate("/storeDetail?title=" + data.name)} >
+        <Wrapper onClick={()=> onClickItem(data)}>
             <PostImgBox height={heightRatio || 80}>
                 <PostImg src={data.storeImage+".png"}></PostImg>
             </PostImgBox>

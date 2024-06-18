@@ -28,8 +28,8 @@ root.render(
             <Route path="community" element={<CommunityPage />}></Route>
             <Route path="myPage" element={<MyPage />}></Route>
             <Route path="myStore" element={<MyStorePage />}></Route>
-            <Route path="postDetail" element={<PostDetailPage />}></Route>
-            <Route path="storeDetail" element={<StoreDetailPage />}></Route>
+            <Route path="post/:id" element={<PostDetailPage />}></Route>
+            <Route path="store/:id" element={<StoreDetailPage />}></Route>
         </Routes>
     </BrowserRouter>
 );
