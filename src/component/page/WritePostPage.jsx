@@ -3,7 +3,6 @@ import styled from "styled-components";
 import Slider from "react-slick";
 
 //component
-import Navigation from "../navigation/Navigation";
 import Header from "../header/Header";
 import FixedTop from "../header/FixedTop";
 import TextInputWrite from '../ui/TextInputWrite';
@@ -21,11 +20,13 @@ import { db } from "../../firebase.js"    // firebase 설정 가져오기
 
 const Wrapper = styled.div`
     width: 100%;
+    height: calc(100vh - 103px - 114px);
+    margin-top:103px;
 `;
 
 const ContentArea = styled.div`
     width: 100%;
-    height: calc(100vh - 220px);
+    height: 100%;
     overflow: auto;
     padding: 0 20px;
 `;
@@ -76,31 +77,6 @@ const PlusIcon = styled.span`
     color: #3192f7;
     display: block;
 `;
-
-// const LocationInfo = styled.div`
-//     margin-bottom: 12px;
-// `;
-
-// const StoreName = styled.h4`
-//     font-size: 18px;
-//     margin-bottom: 6px;
-//     font-weight: 300;
-// `;
-
-// const Address = styled.p`
-//     font-size: 14px;
-//     color: #3182F7;
-//     display: flex;
-//     align-items: center;
-//     margin-left: -5px;
-// `;
-
-// const LocationIcon = styled.img`
-//     width: 16px;
-//     height: 16px;
-//     object-fit: cover;
-//     margin-right: 4px;
-// `;
 
 const ImageSlide = styled.div`
     position: relative;
@@ -224,6 +200,7 @@ function CommunityPage(props) {
                     value={content}
                     onChange={(e)=>setContent(e.target.value)}
                 />
+                
                 <Postbutton onClick={function(){
                         let timeTemp = new Date();
                         let timeStamp = timeTemp.getTime().toString();

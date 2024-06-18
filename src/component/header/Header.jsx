@@ -16,6 +16,11 @@ const Wrapper = styled.div`
 
     display:flex;
     align-items:center;
+
+    position:fixed;
+    top:43px;
+    left:0;
+    z-index:1;
 `
 
 const BackIcon = styled.img`

@@ -10,6 +10,10 @@ const Wrapper = styled.div`
     padding-inline: 20px;
     padding-block: 12px;
     background-color: #FFFFFF;
+
+    &:last-child {
+        margin-bottom:114px;
+    }
     /* border-bottom: 2px solid #DFDFDF; */
 `;
 

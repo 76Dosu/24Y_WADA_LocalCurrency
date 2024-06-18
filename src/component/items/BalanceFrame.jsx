@@ -7,9 +7,6 @@ import Button from "../ui/Button";
 // image
 import BalanceImage from "../../images/balanceIcon.png"
 
-
-
-
 // styled
 const Balance = styled.div`
     width:100%;

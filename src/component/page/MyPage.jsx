@@ -9,16 +9,17 @@ import Navigation from "../navigation/Navigation";
 import Header from "../header/Header";
 import FixedTop from "../header/FixedTop";
 import Button from "../ui/Button";
-import PostItem from "../items/PostItem";
 import PostList from "../list/PostList";
 
 //styled
 const Wrapper = styled.div`
     width:100%;
+    height: calc(100vh - 103px - 114px);
+    margin-top:103px;
 `
 const ContentArea = styled.div`
     width:100%;
-    height: calc(100vh - 220px);
+    height: 100%;
     overflow: auto;
 `
 
@@ -26,6 +27,7 @@ const ProfileHeader = styled.div`
     width:100%;
     margin:0;
 `
+
 const BackImgBox = styled.div`
     width: 100%; 
     padding-bottom: 40%;
@@ -228,7 +230,7 @@ function MyPage(props) {
                 </ProfileHeader>
                 <ButtonContainer>
                     <Button width={"45%"} title={"프로필 편집"}></Button>
-                    <Button width={"45%"} background={"#FFFFFF"} color={"#3182F7"} title={"나의 가맹점"} onClick={() => { navigate('/myStore') }}></Button>
+                    <Button width={"45%"} background={"#FFFFFF"} color={"#3182F7"} title={"MY 플레이스"} onClick={() => { navigate('/myStore') }}></Button>
                 </ButtonContainer>
                 <MyPostContainer>
                     <TitleCover>

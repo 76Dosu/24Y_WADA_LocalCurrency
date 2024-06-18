@@ -2,8 +2,8 @@ import React from 'react'
 import styled from "styled-components";
 
 import Header from "../header/Header";
-// import LocationInfo from "../items/LocationInfo";
 import FixedTop from "../header/FixedTop";
+import Navigation from '../navigation/Navigation';
 
 
 const Wrapper = styled.div`
@@ -12,7 +12,8 @@ const Wrapper = styled.div`
 
 const ContentArea = styled.div`
     width: 100%;
-    height: calc(100vh - 160px);
+    margin-top:103px;
+    height: calc(100vh - 103px - 114px);
     overflow: auto;
     padding: 0 20px;
     background-image: url("/Qr.png");
@@ -78,23 +79,19 @@ const UseQr=styled.h2`
 function QrcodePage() {
   return (
     <Wrapper>
-    <FixedTop />
-    <Header backLink="/" headerTitle="포스팅" />
-    <ContentArea>
-       
-    </ContentArea>
+        <FixedTop />
+        <Header backLink="/" headerTitle="QR 결제" />
+        
+        <ContentArea></ContentArea>
     
-    <Qrbox>
-
-        </Qrbox>
+        <Qrbox></Qrbox>
         <QrInfo>
-        <WhereQr>음식점·편의점·병원 등 어디서든</WhereQr>
-        <UseQr>QR코드를 스캔하세요</UseQr>
+            <WhereQr>음식점·편의점·병원 등 어디서든</WhereQr>
+            <UseQr>QR코드를 스캔하세요</UseQr>
        </QrInfo>
-            <Howuse>
-                <HowuseHandle></HowuseHandle>
-                <HowuseText>사용방법</HowuseText>
-            </Howuse>
+        
+        <Navigation></Navigation>
+
         </Wrapper>
   )
 }

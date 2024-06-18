@@ -20,7 +20,8 @@ import StoreList from "../list/StoreList.jsx";
 const Wrapper = styled.div`
     width:100%;
     overflow:scroll;
-    height:calc(100vh - 116px);
+    height: calc(100vh - 103px - 114px);
+    margin-top:103px;
 ;`
 
 // store
@@ -94,7 +95,6 @@ const StoreImgWrap = styled.div`
     width: 100%;
     height: 260px;
     position: relative;
-    background-color: aqua;
 `
 
 const StoreProfile = styled.img`

@@ -17,12 +17,13 @@ import CommentList from "../list/CommentList";
 import Button from "../ui/Button";
 
 //image
-import RepresentImage from "../../images/testImage.png"
+import sendIcon from "../../images/send.png"
 
 //styled
 const Wrapper = styled.div`
     width:100%;
-    height:calc(100vh - 116px);
+    height:calc(100vh - 103px - 114px);
+    margin:103px 0 114px 0;
     overflow: scroll;
 `
 
@@ -81,8 +82,6 @@ const UploadComment = styled.div`
     display:flex;
     align-items: center;
     justify-content: space-between;
-
-    
 `
 
 function PostDetailPage(props) {
@@ -157,7 +156,7 @@ function PostDetailPage(props) {
 
         <Wrapper>
             <FixedTop />
-            <Header backLink="/community" headerTitle="글 쓴거 제목" />
+            <Header backLink="/community" headerTitle="포스팅" />
 
             <ContentArea>
 
@@ -191,8 +190,8 @@ function PostDetailPage(props) {
                 <CommentList></CommentList>
 
                 <UploadComment>
-                    <TextInput placeholder="댓글을 입력하세요." width="80%" onChange={(e) => setComment(e.target.value)} value={comment}></TextInput>
-                    <Button title="등록"></Button>
+                    <TextInput placeholder="댓글을 입력하세요." width="84%" onChange={(e) => setComment(e.target.value)} value={comment}></TextInput>
+                    <Button icon={sendIcon}></Button>
                 </UploadComment>
 
             </CommentArea>

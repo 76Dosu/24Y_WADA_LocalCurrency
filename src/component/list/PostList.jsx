@@ -8,7 +8,6 @@ const Wrapper = styled.div`
     align-items: flex-start;
     justify-content: center;
     background-color: #F2F2F2;
-    
 `
 
 function PostList(props) {

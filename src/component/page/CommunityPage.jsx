@@ -9,7 +9,6 @@ import Navigation from "../navigation/Navigation";
 import Header from "../header/Header";
 import FixedTop from "../header/FixedTop";
 import TextInput from "../ui/TextInput";
-import PostItem from "../items/PostItem";
 import PostList from "../list/PostList";
 
 //images
@@ -18,6 +17,8 @@ import searchIcon from "../../images/searchIcon.png"
 //styled
 const Wrapper = styled.div`
     width: 100%;
+    height:calc(100vh - 103px - 114px);
+    margin: 103px 0px 114px 0px;
 `;
 
 const SearchContainer = styled.div`
@@ -95,6 +96,10 @@ const BlueBar = styled.div`
     z-index: -1;
 `;
 
+const PostContainer = styled.div`
+    width:100%;
+`
+
 function CommunityPage(props) {
     const [mapTab, setMapTab] = useState(1);
     const [data, setData] = useState([])
@@ -160,7 +165,7 @@ function CommunityPage(props) {
                     <FilterImage src="/filterButton.png"></FilterImage>
                 </FilterButton>
                 <TextInputWrapper>
-                    <TextInput icon={searchIcon} />
+                    <TextInput placeholder="카테고리 또는 가맹점 입력" icon={searchIcon} />
                 </TextInputWrapper>
             </SearchContainer>
             <TabContainer>
@@ -176,7 +181,9 @@ function CommunityPage(props) {
                     </MapTab>
                 </MapTabCover>
             </TabContainer>
-            <PostList posts={data} onClickItem={(p) => { navigate('/post/' + p.id, {state: p}) }} />
+            <PostContainer>
+                <PostList posts={data} onClickItem={(p) => { navigate('/post/' + p.id, {state: p}) }} />
+            </PostContainer>
             <Navigation></Navigation>
         </Wrapper>
     );

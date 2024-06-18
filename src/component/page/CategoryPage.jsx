@@ -14,11 +14,13 @@ import { db } from "../../firebase.js"    // firebase 설정 가져오기
 //styled
 const Wrapper = styled.div`
     width: 100%;
+    height:calc(100vh - 103px - 114px);
+    margin:103px 0 114px 0px;
 `
 
 const ContentArea = styled.div`
     width: 100%;
-    height: calc(100vh - 280px);
+    height: 100%;
     overflow: hidden;
     position: relative;
 `;

@@ -11,15 +11,14 @@ import CateGrid from "../list/CateGrid";
 import DividedDiv from "../ui/DividedDiv.jsx";
 import BalanceFrame from "../items/BalanceFrame.jsx";
 
-import { db } from "../../firebase.js"    // firebase 설정 가져오기
-
 //image
 import BannerImage from "../../images/main-banner.png"
 
 //styled
 const Wrapper = styled.div`
     width:100%;
-    height:calc(100vh + 16px);
+    height:calc(100vh - 103px - 114px);
+    margin-top:103px;
 `
 const Tag = styled.p`
     font-size: 20px;

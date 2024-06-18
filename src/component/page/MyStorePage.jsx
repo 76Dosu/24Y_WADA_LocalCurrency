@@ -1,13 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import styled from "styled-components";
 
-
 //component
 import Navigation from "../navigation/Navigation";
 import Header from "../header/Header";
 import FixedTop from "../header/FixedTop";
-import Button from "../ui/Button";
-import MyStoreGrid from "../list/MyStoreGrid";
 import Tabs from "../tab/Tabs";
 
 import { db } from "../../firebase.js"    // firebase 설정 가져오기
@@ -15,10 +12,12 @@ import { db } from "../../firebase.js"    // firebase 설정 가져오기
 //styled
 const Wrapper = styled.div`
     width:100%;
+    height:calc(100vh - 103px - 114px);
+    margin:103px 0 114px 0px;
 `
 const ContentArea = styled.div`
     width:100%;
-    height: calc(100vh - 280px);
+    height: 100%;
     overflow: auto;
 `
 
@@ -141,7 +140,7 @@ function MyStorePage(props) {
 
         <Wrapper>
             <FixedTop></FixedTop>
-            <Header backLink="/" headerTitle="나의 가맹점"></Header>
+            <Header backLink="/" headerTitle="MY 플레이스"></Header>
             
 
             <Tabs data={data} minWidthPer={50} tabType={'나의가맹점'} tabList={myPageTab} nowState={0}></Tabs>
