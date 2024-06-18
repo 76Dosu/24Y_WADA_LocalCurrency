@@ -112,8 +112,29 @@ function PostDetailPage(props) {
                             .collection('store').doc(storeDoc.id).collection('post').where('id', '==', postId).get();
 
                         if (!postSnapshot.empty) {
-                            // Post found, return the store document data
-                            return { id: storeDoc.id, ...storeDoc.data() };
+                            // Post found, get the store document data
+                            let storeData = { id: storeDoc.id, ...storeDoc.data() };
+
+                            // Get 'menu' subcollection for this 'store' document
+                            const menuSnapshot = await db.collection(collectionName).doc(doc.id)
+                                .collection('store').doc(storeDoc.id).collection('menu').get();
+                            let menus = [];
+                            for (const menuDoc of menuSnapshot.docs) {
+                                menus.push({ id: menuDoc.id, ...menuDoc.data() });
+                            }
+                            storeData.menus = menus;
+
+                            // Get 'post' subcollection for this 'store' document
+                            const postCollectionSnapshot = await db.collection(collectionName).doc(doc.id)
+                                .collection('store').doc(storeDoc.id).collection('post').get();
+                            let posts = [];
+                            for (const postDoc of postCollectionSnapshot.docs) {
+                                posts.push({ id: postDoc.id, ...postDoc.data() });
+                            }
+                            storeData.posts = posts;
+
+                            // Return store data with all subcollections
+                            return storeData;
                         }
                     }
                 }
@@ -130,7 +151,7 @@ function PostDetailPage(props) {
         };
 
         fetchStoreData();
-    }, []);
+    }, [postIdToFind]);
 
     return (
 
@@ -144,13 +165,15 @@ function PostDetailPage(props) {
                 <PostTitle>{state.title}</PostTitle>
                 <LocationInfo onClick={function () {
                     navigation('/store/' + storeData.id, { state: storeData })
+                    console.log("==================확인용")
+                    console.log(storeData)
                 }}>
                     {storeData ? (
                         <Address><LocationIcon src={"/location.png"} />{storeData.name || ""}_{storeData.branchName || ""}</Address>
                     ) : (
                         <Address><LocationIcon src={"/location.png"} />loading...</Address>
                     )}
-                    
+
                 </LocationInfo>
 
                 {/* Image */}
@@ -171,9 +194,9 @@ function PostDetailPage(props) {
                     <TextInput placeholder="댓글을 입력하세요." width="80%" onChange={(e) => setComment(e.target.value)} value={comment}></TextInput>
                     <Button title="등록"></Button>
                 </UploadComment>
-                
+
             </CommentArea>
-            
+
             <Navigation></Navigation>
         </Wrapper>
 
