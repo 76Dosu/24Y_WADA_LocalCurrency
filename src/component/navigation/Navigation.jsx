@@ -51,7 +51,7 @@ function Navigation(props) {
 
         <NavigationFrame>
             <NavigationItem onClick={() => {navigation('/')}} imageUrl={homeIcon} navTitle="홈"></NavigationItem>
-            <NavigationItem imageUrl={recommendIcon} navTitle="추천 가맹점"></NavigationItem>
+            <NavigationItem onClick={() => {navigation('/Qr')}} imageUrl={recommendIcon} navTitle="추천 가맹점"></NavigationItem>
             <NavigationWrite onClick={() => {navigation('/select')}}>
                 <WriteImage src={writeIcon}></WriteImage>
             </NavigationWrite>
