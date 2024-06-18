@@ -12,7 +12,7 @@ const Wrapper = styled.div`
     background-color: #FFFFFF;
 
     &:last-child {
-        margin-bottom:114px;
+        margin-bottom:0px;
     }
     /* border-bottom: 2px solid #DFDFDF; */
 `;
