@@ -42,35 +42,40 @@ function PostSelectPage(props) {
                 <TextInputWrapper>
                     <TextInput placeholder="카테고리 또는 가맹점 입력" icon={searchIcon} />
                 </TextInputWrapper>
-                <LocationInfo  storeName="뜨끈이감자탕" 
+                <LocationInfo  storeName="뜨끈이 감자탕" 
                     address="경기도 시흥시 정왕동"
-                    onClick={function() {navigation('/write', {state: ["뜨끈이감자탕","경기도 시흥시 정왕동"]})}} navTitle="리뷰 작성"
+                    onClick={function() {navigation('/write', {state: ["뜨끈이 감자탕","경기도 시흥시 정왕동"]})}} navTitle="리뷰 작성"
                     >
                         
                 </LocationInfo>
-                <LocationInfo  storeName="814바베큐" 
+                <LocationInfo  storeName="더베이징" 
                     address="경기도 시흥시 배곧동"
-                    onClick={function() {navigation('/write', {state: ["814바베큐","경기도 시흥시 배곧동"]})}} navTitle="리뷰 작성"
+                    onClick={function() {navigation('/write', {state: ["더베이징","경기도 시흥시 배곧동"]})}} navTitle="리뷰 작성"
                     >
                 </LocationInfo>
-                <LocationInfo  storeName="속초집" 
+                <LocationInfo  storeName="스미카츠" 
                     address="경기도 시흥시 정왕본동"
-                    onClick={function() {navigation('/write', {state: ["속초집","경기도 시흥시 정왕본동"]})}} navTitle="리뷰 작성"
+                    onClick={function() {navigation('/write', {state: ["스미카츠","경기도 시흥시 정왕본동"]})}} navTitle="리뷰 작성"
                     >
                 </LocationInfo>
-                <LocationInfo  storeName="전라도 연탄구이" 
+                <LocationInfo  storeName="포레스트" 
                     address="경기도 시흥시 정왕1동"
-                    onClick={function() {navigation('/write', {state: ["전라도 연탄구이","경기도 시흥시 정왕1동"]})}} navTitle="리뷰 작성"
+                    onClick={function() {navigation('/write', {state: ["포레스트","경기도 시흥시 정왕1동"]})}} navTitle="리뷰 작성"
                     >
                 </LocationInfo>
-                <LocationInfo  storeName="초이노미" 
+                <LocationInfo  storeName="맘스터치" 
                     address="경기도 시흥시 정왕2동"
-                    onClick={function() {navigation('/write', {state: ["초이노미","경기도 시흥시 정왕2동"]})}} navTitle="리뷰 작성"
+                    onClick={function() {navigation('/write', {state: ["맘스터치","경기도 시흥시 정왕2동"]})}} navTitle="리뷰 작성"
                     >
                 </LocationInfo>
-                <LocationInfo  storeName="지은이네 순대국" 
+                <LocationInfo  storeName="카페더피치" 
                     address="경기도 시흥시 정왕3동"
-                    onClick={function() {navigation('/write', {state: ["지은이네 순대국","경기도 시흥시 정왕3동"]})}} navTitle="리뷰 작성"
+                    onClick={function() {navigation('/write', {state: ["카페더피치","경기도 시흥시 정왕3동"]})}} navTitle="리뷰 작성"
+                    >
+                </LocationInfo>
+                <LocationInfo  storeName="쁘숑베이커리" 
+                    address="경기도 시흥시 정왕3동"
+                    onClick={function() {navigation('/write', {state: ["쁘숑베이커리","경기도 시흥시 정왕3동"]})}} navTitle="리뷰 작성"
                     >
                 </LocationInfo>
 

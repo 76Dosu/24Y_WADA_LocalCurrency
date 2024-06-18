@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
-import { useLocation } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 
 // 이미지
 import posIcon from "../../images/map.png";
@@ -15,6 +15,7 @@ import StoreUtilMenu from "../items/StoreUtilMenu";
 import DividedDiv from "../ui/DividedDiv";
 import StoreInfo from "../ui/StoreInfo";
 import StoreList from "../list/StoreList.jsx";
+import PostList from "../list/PostList";
 
 // 스타일드 컴포넌트
 const Wrapper = styled.div`
@@ -111,9 +112,16 @@ const StoreProfile = styled.img`
     border-radius: 40px;
 `;
 
+`
+
+const PostContainer = styled.div`
+    width:100%;
+`
+
 function StoreDetailPage(props) {
     const [data, setData] = useState([]);
     const { state } = useLocation();
+    const navigate = useNavigate();
     const [likeCount, setLikeCount] = useState(132);
 
     const handleLikeClick = (isLiked) => {
@@ -157,7 +165,14 @@ function StoreDetailPage(props) {
                             <StoreList menus={state.menus}></StoreList>
                         </StoreMenuArea>
                     </StoreMenuArea2>
-                )}
+
+                }
+                {console.log("state==================================================")}
+                {console.log(state.posts)}
+                <PostContainer>
+                    <PostList storePosts={state.posts} onClickItem={(p) => { navigate('/post/' + p.id, { state: p }) }} />
+                </PostContainer>
+
             </ContentsArea>
 
             <Navigation></Navigation>
