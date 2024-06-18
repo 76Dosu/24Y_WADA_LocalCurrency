@@ -93,6 +93,7 @@ function CommentItem(props) {
                 <UserTextInfo>
                     <UserName>티노사랑</UserName>
                     <UserWriteTime>{postInfo.year}년 {postInfo.month}월 {postInfo.day}일</UserWriteTime>
+                    
                 </UserTextInfo>
 
                 <BalanceUtilFrame>

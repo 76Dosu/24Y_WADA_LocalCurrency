@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import { useNavigate } from "react-router-dom";
 
 // compotents
 import Button from "../ui/Button";
@@ -77,6 +78,7 @@ const Advantage=styled.img`
 
 function BalanceFrame(props){
 
+    const navigate = useNavigate()
 
     return (
 
@@ -98,7 +100,7 @@ function BalanceFrame(props){
             <ButtonFrame>
             <Advantage src={"/advantage.png"} ></Advantage>
                 <Button background="white" color="#3182F7" width="24%" title="충전"></Button>
-                <Button width="24%" title="결제"></Button>
+                <Button onClick={() => navigate("/Qr")} width="24%" title="결제"></Button>
             </ButtonFrame>
             
         </Balance>

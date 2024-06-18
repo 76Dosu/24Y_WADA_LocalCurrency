@@ -12,7 +12,7 @@ const Wrapper = styled.div`
     background-color: #FFFFFF;
 
     &:last-child {
-        margin-bottom:114px;
+        margin-bottom:0px;
     }
     /* border-bottom: 2px solid #DFDFDF; */
 `;
@@ -101,9 +101,9 @@ const NumbText = styled.p`
     color: #585858;
 `;
 
-function PostItem(props){
+function PostItem(props) {
     // 
-    const {post, onClick} = props;
+    const { post, onClick } = props;
 
     return (
         <Wrapper onClick={onClick}>
@@ -117,7 +117,12 @@ function PostItem(props){
             </PostHeader>
             <TitleText>{post.title} ···</TitleText>
             <PostImgBox>
-                <PostImg src={post.postImage}></PostImg>
+                {typeof(post.postImage) === "string" &&
+                    <PostImg src={post.postImage}></PostImg>
+                }
+                {Array.isArray(post.postImage) &&
+                    <PostImg src={post.postImage[0]}></PostImg>
+                }
             </PostImgBox>
             <IconBox>
                 <Icon src={"/like.png"}></Icon>

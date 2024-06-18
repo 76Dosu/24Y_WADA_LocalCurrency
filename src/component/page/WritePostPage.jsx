@@ -1,6 +1,8 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import Slider from "react-slick";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 //component
 import Header from "../header/Header";
@@ -12,7 +14,7 @@ import LocationInfo from "../items/LocationInfo";
 import { useLocation, useNavigate } from "react-router-dom";
 
 // Slider styles
-import "slick-carousel/slick/slick.css"; 
+import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
 
@@ -117,7 +119,7 @@ const Dot = styled.li`
 `;
 
 function CommunityPage(props) {
-    const {state} = useLocation();
+    const { state } = useLocation();
     const [images, setImages] = useState([]);
     const [title, setTitle] = useState('');
     const [content, setContent] = useState('');
@@ -154,6 +156,74 @@ function CommunityPage(props) {
         }
     };
 
+    const [storeData, setStoreData] = useState(null);
+    const storeName = state[0]; // 찾아야 할 store ID
+    console.log("state[0]")
+    console.log(state[0])
+
+    useEffect(() => {
+        const findStoreByName = async (storeName) => {
+            const collectionName = 'dummyData';
+
+            try {
+                // Get the top-level collection 'dummyData2'
+                const snapshot = await db.collection(collectionName).get();
+
+                for (const doc of snapshot.docs) {
+                    // Get 'store' subcollection for each document
+                    const storeSnapshot = await db.collection(collectionName).doc(doc.id).collection('store').get();
+
+                    for (const storeDoc of storeSnapshot.docs) {
+                        if (storeDoc.data().name === storeName) {
+                            // Store found, get the store document data
+                            let storeData = { id: storeDoc.id, ...storeDoc.data() };
+
+                            console.log("storeData2222222222")
+                            console.log(storeData)
+                            // Add parent document ID
+                            storeData.parentDocId = doc.id;
+
+                            console.log("doc.id22222222222222")
+                            console.log(doc.id)
+                            // Get 'menu' subcollection for this 'store' document
+                            const menuSnapshot = await db.collection(collectionName).doc(doc.id)
+                                .collection('store').doc(storeDoc.id).collection('menu').get();
+                            let menus = [];
+                            for (const menuDoc of menuSnapshot.docs) {
+                                menus.push({ id: menuDoc.id, ...menuDoc.data() });
+                            }
+                            storeData.menus = menus;
+
+                            // Get 'post' subcollection for this 'store' document
+                            const postSnapshot = await db.collection(collectionName).doc(doc.id)
+                                .collection('store').doc(storeDoc.id).collection('post').get();
+                            let posts = [];
+                            for (const postDoc of postSnapshot.docs) {
+                                posts.push({ id: postDoc.id, ...postDoc.data() });
+                            }
+                            storeData.posts = posts;
+
+                            // Return store data with all subcollections
+                            return storeData;
+                        }
+                    }
+                }
+                return null; // Store not found
+            } catch (error) {
+                console.error("Error finding store by name: ", error);
+                return null;
+            }
+        };
+
+        const fetchStoreData = async () => {
+            const data = await findStoreByName(storeName);
+            setStoreData(data);
+        };
+
+        fetchStoreData();
+
+    }, [storeName]);
+
     return (
         <Wrapper>
             <FixedTop />
@@ -170,11 +240,11 @@ function CommunityPage(props) {
                         </Slider>
                     </SliderContainer>
                     <ImagePlusContainer hasImages={images.length > 0} onClick={handleImageClick}>
-                        <HiddenFileInput 
-                            id="imageUpload" 
-                            type="file" 
-                            accept="image/*" 
-                            onChange={handleImageChange} 
+                        <HiddenFileInput
+                            id="imageUpload"
+                            type="file"
+                            accept="image/*"
+                            onChange={handleImageChange}
                         />
                         <PlusIcon>+</PlusIcon>
                         <Imageguide hasImages={images.length > 0}>
@@ -190,7 +260,7 @@ function CommunityPage(props) {
                     height={40}
                     placeholder="제목을 입력하세요"
                     value={title}
-                    onChange={(e)=>setTitle(e.target.value)}
+                    onChange={(e) => setTitle(e.target.value)}
                 />
                 <TextInputWrite
                     height={200}
@@ -198,17 +268,20 @@ function CommunityPage(props) {
                     placeholderColor="#88888850"
                     placeholderFontSize="14px"
                     value={content}
-                    onChange={(e)=>setContent(e.target.value)}
+                    onChange={(e) => setContent(e.target.value)}
                 />
-                
-                <Postbutton onClick={function(){
+
+                <Postbutton onClick={function () {
+                    console.log("storeData5555555555555555555555555555555555555555555555")
+                    console.log(images.length === 0)
+                    if (images.length >= 1 && title !== "" && content !== "") {
                         let timeTemp = new Date();
                         let timeStamp = timeTemp.getTime().toString();
                         let year = timeTemp.getFullYear();
-                        let month = timeTemp.getMonth()+1;
+                        let month = timeTemp.getMonth() + 1;
                         let day = timeTemp.getDate();
                         // console.log(year+"년"+month+"월"+day+"일")
-                        db.collection('dummyData').doc('0').collection('store').doc('kr_store_1').collection('post').doc(timeStamp).set({
+                        db.collection('dummyData').doc(storeData.parentDocId).collection('store').doc(storeData.id).collection('post').doc(timeStamp).set({
                             id: timeStamp,
                             year: year,
                             month: month,
@@ -219,9 +292,16 @@ function CommunityPage(props) {
                             like: 0,
                             postImage: images,
                             storeId: "가맹점Id"
-                        }).then(function(){
-                            navigate(`/post/:${timeStamp}`, {state:[title, content, images, timeStamp]})
-                        })}} title="포스트 작성하기"/>
+                        }).then(function () {
+                            navigate(`/community`)
+                        })
+                    }
+                    else {
+                        toast.warn("이미지를 추가하고 제목과 내용을 입력해주세요.");
+                    }
+
+                }} title="포스트 작성하기" />
+                <ToastContainer />
             </ContentArea>
         </Wrapper>
     );

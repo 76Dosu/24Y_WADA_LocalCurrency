@@ -4,6 +4,7 @@ import { useLocation } from "react-router-dom";
 
 import { db } from "../../firebase.js"    // firebase 설정 가져오기
 import { useNavigate } from "react-router-dom";
+import Slider from "react-slick";
 
 
 //component
@@ -63,6 +64,7 @@ const LocationIcon = styled.img`
 
 const PostRepresentImage = styled.img`
     width:100%;
+    border-radius: 14px;
 `
 
 const PostContentFrame = styled.div`
@@ -83,11 +85,91 @@ const UploadComment = styled.div`
     align-items: center;
     justify-content: space-between;
 `
+const SliderContainer = styled.div`
+    width: 100%;
+    height: 100%;
+    display: ${({ hasImages }) => (hasImages ? "block" : "none")};
+`;
 
+const ImagePlusContainer = styled.div`
+    width: ${({ hasImages }) => (hasImages ? "20%" : "100%")};
+    height: 100%;
+    background-color: #E8F2FB;
+    border-radius: 14px;
+    border: 2px dashed #3182F7;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    position: relative;
+`;
+
+const HiddenFileInput = styled.input`
+    display: none;
+`;
+
+const Imageguide = styled.div`
+    display: ${({ hasImages }) => (hasImages ? "none" : "flex")};
+    flex-direction: column;
+    align-items: center;
+`;
+
+const PlusIcon = styled.span`
+    font-size: 32px;
+    color: #3192f7;
+    display: block;
+`;
+
+const ImageSlide = styled.div`
+    position: relative;
+    width: 100%;
+    padding-bottom: 100%; 
+    overflow: hidden;
+    border-radius: 14px;
+`;
+
+const SlideImage = styled.img`
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Maintain aspect ratio */
+    border-radius: 14px; /* Ensure rounded corners */
+`;
+
+const CustomDot = styled.ul`
+    position: absolute;
+    bottom:15px;
+    left: 90%;
+    transform: translateX(-50%);
+    display: flex;
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+`;
+
+const DateText = styled.p`
+    font-size: 12px;
+    font-weight: bold;
+    color: #666666;
+    margin-bottom:20px;
+`;
+
+const Dot = styled.li`
+    width: 10px !important; /* Adjust the width */
+    height: 10px !important; /* Adjust the height */
+    margin: 0 5px;
+    background-color: ${({ active }) => (active ? "#3182F7" : "#C4C4C4")};
+    border-radius: 50%;
+    cursor: pointer;
+`;
 function PostDetailPage(props) {
 
     const { state } = useLocation();
     const navigation = useNavigate();
+    const [currentSlide, setCurrentSlide] = useState(0);
 
     const [storeData, setStoreData] = useState(null);
     const [comment, setComment] = useState(null);
@@ -96,27 +178,27 @@ function PostDetailPage(props) {
     useEffect(() => {
         const findStoreByPostId = async (postId) => {
             const collectionName = 'dummyData';
-    
+
             try {
                 // Get the top-level collection 'dummyData2'
                 const snapshot = await db.collection(collectionName).get();
-    
+
                 for (const doc of snapshot.docs) {
                     // Get 'store' subcollection for each document
                     const storeSnapshot = await db.collection(collectionName).doc(doc.id).collection('store').get();
-    
+
                     for (const storeDoc of storeSnapshot.docs) {
                         // Get 'post' subcollection for each 'store' document
                         const postSnapshot = await db.collection(collectionName).doc(doc.id)
                             .collection('store').doc(storeDoc.id).collection('post').where('id', '==', postId).get();
-    
+
                         if (!postSnapshot.empty) {
                             // Post found, get the store document data
                             let storeData = { id: storeDoc.id, ...storeDoc.data() };
-    
+
                             // Add parent document ID
                             storeData.parentDocId = doc.id;
-    
+
                             // Get 'menu' subcollection for this 'store' document
                             const menuSnapshot = await db.collection(collectionName).doc(doc.id)
                                 .collection('store').doc(storeDoc.id).collection('menu').get();
@@ -125,7 +207,7 @@ function PostDetailPage(props) {
                                 menus.push({ id: menuDoc.id, ...menuDoc.data() });
                             }
                             storeData.menus = menus;
-    
+
                             // Get 'post' subcollection for this 'store' document
                             const postCollectionSnapshot = await db.collection(collectionName).doc(doc.id)
                                 .collection('store').doc(storeDoc.id).collection('post').get();
@@ -134,7 +216,7 @@ function PostDetailPage(props) {
                                 posts.push({ id: postDoc.id, ...postDoc.data() });
                             }
                             storeData.posts = posts;
-    
+
                             // Return store data with all subcollections
                             return storeData;
                         }
@@ -146,29 +228,46 @@ function PostDetailPage(props) {
                 return null;
             }
         };
-    
+
         const fetchStoreData = async () => {
             const data = await findStoreByPostId(postIdToFind);
             setStoreData(data);
         };
-    
+
         fetchStoreData();
     }, [postIdToFind]);
+
+    const settings = {
+        dots: true,
+        infinite: false,
+        speed: 500,
+        slidesToShow: 1,
+        slidesToScroll: 1,
+        appendDots: dots => (
+            <CustomDot>
+                {dots.map((dot, index) => (
+                    <Dot key={index} active={index === currentSlide} />
+                ))}
+            </CustomDot>
+        ),
+        afterChange: (index) => {
+            setCurrentSlide(index); // Update current slide index
+        }
+    };
 
     return (
 
         <Wrapper>
             <FixedTop />
-            <Header backLink="/community" headerTitle="" />
+            <Header backLink="/community" headerTitle="포스팅" />
 
             <ContentArea>
 
                 {/* Title */}
                 <PostTitle>{state.title}</PostTitle>
+                <DateText>{state.year}.{state.month}.{state.day}</DateText>
                 <LocationInfo onClick={function () {
                     navigation('/store/' + storeData.id, { state: storeData })
-                    console.log("==================확인용")
-                    console.log(storeData)
                 }}>
                     {storeData ? (
                         <Address><LocationIcon src={"/location.png"} />{storeData.name || ""}_{storeData.branchName || ""}</Address>
@@ -179,7 +278,22 @@ function PostDetailPage(props) {
                 </LocationInfo>
 
                 {/* Image */}
-                <PostRepresentImage src={state.postImage}></PostRepresentImage>
+
+                {typeof (state.postImage) === "string" &&
+                    <PostRepresentImage src={state.postImage}></PostRepresentImage>
+                }
+                {Array.isArray(state.postImage) &&
+                    // <PostRepresentImage src={state.postImage[0]}></PostRepresentImage>
+                    <SliderContainer hasImages={state.postImage.length > 0}>
+                        <Slider {...settings}>
+                            {state.postImage.map((image, index) => (
+                                <ImageSlide key={index}>
+                                    <SlideImage src={image} alt={`Selected ${index}`} />
+                                </ImageSlide>
+                            ))}
+                        </Slider>
+                    </SliderContainer>
+                }
 
                 {/* UtilFrame */}
                 <UtilFrame />
@@ -194,27 +308,25 @@ function PostDetailPage(props) {
 
                 <UploadComment>
                     <TextInput placeholder="댓글을 입력하세요." width="80%" onChange={(e) => setComment(e.target.value)} value={comment}></TextInput>
-                    <Button title="등록" onClick={function(){
-                        console.log("============댓글써지나")
-                        console.log(storeData)
-                        console.log(state.id)
+                    <Button icon={sendIcon} onClick={function(){
+                        // console.log("============댓글써지나")
+                        // console.log(storeData)
+                        // console.log(state.id)
                         let timeTemp = new Date();
                         let timeStamp = timeTemp.getTime().toString();
-                        let year = timeTemp.getFullYear();
-                        let month = timeTemp.getMonth()+1;
-                        let day = timeTemp.getDate();
                         let tempComments = state.comments
                         tempComments.push({
                             id: (state.id + '_' + timeStamp),
-                            content: comment
+                            content: comment,
                         })
                         
-                        console.log(tempComments)
+                        // console.log(tempComments)
                         db.collection('dummyData').doc(storeData.parentDocId).collection('store').doc(storeData.id).collection('post').doc(state.id).update({
                             comments: tempComments
-                        }).then(function(){
+                        }).then(function () {
                             setComment('')
-                        })}}></Button>
+                        })
+                    }}></Button>
                 </UploadComment>
 
             </CommentArea>

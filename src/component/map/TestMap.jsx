@@ -1,8 +1,12 @@
 import React, { useState } from 'react';
 import { GoogleMap, LoadScript, Marker, InfoWindow } from '@react-google-maps/api';
 import styled from 'styled-components';
+import { useNavigate } from 'react-router-dom';
 
 //Compontents
+
+//image
+import dummyImage from "../../images/dummyImage.png"
 
 // 스타일 정의
 const MapContainer = styled.div`
@@ -28,7 +32,7 @@ const SlideUpPanel = styled.div`
   bottom: 0;
   left: 0;
   width: 100%;
-  height: 300px;
+  height: 320px;
   border-radius: 20px;
   background-color: white;
   box-shadow: 0px -2px 10px rgba(0, 0, 0, 0.1);
@@ -66,12 +70,12 @@ const LikeContainer = styled.div`
     align-items: center;
     gap: 5px;
 `;
-    const Icon = styled.img`
+const Icon = styled.img`
         width: 16px;
         height: 16px;
         text-align: center;
     `;
-    const Numb = styled.p`
+const Numb = styled.p`
         font-size: 14px;
         color: #66707A;
     `;
@@ -100,6 +104,27 @@ const mapOptions = {
     fullscreenControl: false // 전체화면 컨트롤 비활성화
 };
 
+const StoreImageFrame = styled.div`
+    width:100%;
+    height:100px;
+    margin-bottom:8px;
+
+    overflow-x: auto;
+    display:flex;
+`
+
+const ImageScroll = styled.div`
+    display: flex;
+    width: 100%;
+`
+
+const DummyImage = styled.img`
+    height:100%;
+    width:33%;
+    object-fit: cover;
+    margin-right:12px;
+    border-radius:4px;
+`
 
 function TestMap(props) {
     const { data, nowTabIndex } = props;
@@ -109,6 +134,7 @@ function TestMap(props) {
     const [customIcon, setCustomIcon] = useState(null);
 
     const [bookMark, setBookmark] = useState("off")
+    const navigate = useNavigate()
 
     const handleMarkerClick = (location) => {
         setSelectedLocation(location);
@@ -140,7 +166,7 @@ function TestMap(props) {
 
     const infoWindowOptions = {
         disableAutoPan: true, // 자동 패닝 비활성화 (close 버튼 숨김)
-      };
+    };
 
     return (
         <MapContainer>
@@ -171,16 +197,30 @@ function TestMap(props) {
                 </GoogleMap>
             </LoadScript>
 
+            
             {/* 슬라이드 업 패널 */}
-            <SlideUpPanel visible={!!selectedLocation}>
+            <SlideUpPanel visible={!!selectedLocation} onClick={function () {
+                navigate("/store/" + selectedLocation.id, { state: selectedLocation })}} >
                 {selectedLocation && (
                     <>
                         <SwipeBar></SwipeBar>
 
+                        <StoreImageFrame>
+                            <ImageScroll>
+                                <DummyImage src={selectedLocation.storeImage}></DummyImage>
+                                {selectedLocation.posts.map((post) => {
+                                    return (
+                                        <DummyImage src={post.postImage}></DummyImage>
+                                    )
+                                })}
+                            </ImageScroll>
+
+                        </StoreImageFrame>
+
                         <StoreTitle>
                             <StoreName>{selectedLocation.name}</StoreName>
                             <StorePos>{selectedLocation.branchName}</StorePos>
-                        </StoreTitle>      
+                        </StoreTitle>
 
                         <StoreInfo>
                             <StoreDistance>230m ㅣ</StoreDistance>
@@ -189,14 +229,13 @@ function TestMap(props) {
                                 <Numb>132</Numb>
                             </LikeContainer>
 
-                            {bookMark==='on' && (
-                            <LastIcon onClick={() => setBookmark('off')} src={"/StarOn.png"}></LastIcon>
+                            {bookMark === 'on' && (
+                                <LastIcon onClick={() => setBookmark('off')} src={"/StarOn.png"}></LastIcon>
                             )}
-                            {bookMark==='off' && (
+                            {bookMark === 'off' && (
                                 <LastIcon onClick={() => setBookmark('on')} src={"/StarOff.png"}></LastIcon>
                             )}
                         </StoreInfo>
-                        
                     </>
                 )}
             </SlideUpPanel>
