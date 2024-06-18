@@ -100,9 +100,13 @@ const LastIcon = styled(Icon)`
     margin-left: auto;
 `;
 
+const TEST = styled.img`
+    width:100%;
+`
+
 function StoreItem(props){
     
-    const {listType, heightRatio ,store, data, onClick} = props;
+    const {listType, heightRatio , data, name, price, image} = props;
     const [bookMark, setBookmark] = useState('off');
 
     const navigate = useNavigate()
@@ -111,7 +115,7 @@ function StoreItem(props){
         
         //우선은 클릭 시 가맹점 상세페이지로 이동
         //나중에 파이어베이스 연결해줘서 맞춰야할 듯
-        <Wrapper onClick={() => navigate("/storeDetail?headerTitle=" + data.name)} >
+        <Wrapper onClick={(e) => navigate("/storeDetail?title=" + data.name)} >
             <PostImgBox height={heightRatio || 80}>
                 <PostImg src={data.storeImage+".png"}></PostImg>
             </PostImgBox>
@@ -155,8 +159,9 @@ function StoreItem(props){
             )}
             {listType === '메뉴' && (
                 <ContentContainer>
-                    <NameText>{store || "메뉴 이름"}</NameText>
-                    <SecondNameText>9,000 원</SecondNameText>
+                    <NameText>{name|| "메뉴 이름"}</NameText>
+                    <SecondNameText>{price}</SecondNameText>
+                    <TEST src={image}></TEST>
                 </ContentContainer>
             )}
 

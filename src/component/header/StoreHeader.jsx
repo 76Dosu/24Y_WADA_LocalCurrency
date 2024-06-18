@@ -7,6 +7,7 @@ import { useNavigate } from "react-router-dom";
 //images
 import backIcon from "../../images/back.png"
 
+
 //style
 const Wrapper = styled.div`
     width:100%;
@@ -30,7 +31,6 @@ const HeaderTitleText = styled.p`
     color:var(--main-textColor);
 `
 
-
 function StoreHeader(props) {
 
     const navigation = useNavigate();
@@ -40,7 +40,7 @@ function StoreHeader(props) {
 
         <Wrapper>
             <BackIcon onClick={() => {navigation(`${backLink}`)}} src={backIcon}></BackIcon>
-            <HeaderTitleText>{headerTitle || "가맹점 이름"}</HeaderTitleText>
+            <HeaderTitleText>{headerTitle || "뜨끈이 감자탕"}</HeaderTitleText>
         </Wrapper>
 
     )
