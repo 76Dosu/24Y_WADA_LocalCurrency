@@ -4,9 +4,8 @@ import StoreItem from "../items/StoreItem";
 
 const Wrapper = styled.div`
     display:flex;
-    flex-direction:row;
-    flex-wrap: wrap;
     align-items: flex-start;
+    gap:16px;
 `
 
 function StoreList(props) {

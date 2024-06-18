@@ -16,17 +16,10 @@ import DividedDiv from "../ui/DividedDiv"
 import StoreInfo from "../ui/StoreInfo";
 import StoreList from "../list/StoreList.jsx";
 
-import { db } from "../../firebase.js"
-
-//image
-import storeImage from "../../images/storeBannerImage.png"
-
 //styled
 const Wrapper = styled.div`
     width:100%;
-    height:100px;
-    background-color:yellow;
-`
+;`
 
 // store
 const UtilContentArea = styled.div`
@@ -37,6 +30,11 @@ const UtilContentArea = styled.div`
 
 const StoreBanner = styled.img`
     width:100%;
+`
+
+const ContentsArea = styled.div`
+    width:100%;
+    height:calc(100vh - 220px);
 `
 
 const StoreTItle = styled.p`
@@ -79,6 +77,7 @@ const StoreInfoArea = styled.div`
 `
 
 const StoreMenuArea = styled.div`
+    display:flex;
     width:100%;
 `
 
@@ -99,8 +98,9 @@ function StoreDetailPage(props) {
 
             <StoreBanner src={state.storeImage}></StoreBanner>
 
-            {/* 유틸 */}
-            <UtilContentArea>
+            <ContentsArea>
+                {/* 유틸 */}
+                <UtilContentArea>
 
                 <StoreTItle>{state.name + " " + state.branchName}</StoreTItle>
                 <LikeContainer>
@@ -113,28 +113,28 @@ function StoreDetailPage(props) {
 
                 <StoreUtilMenu></StoreUtilMenu>
 
-            </UtilContentArea>
+                </UtilContentArea>
 
-            <DividedDiv></DividedDiv>
+                <DividedDiv></DividedDiv>
 
-            {/* 가게정보 */}
-            <StoreInfoArea>
+                {/* 가게정보 */}
+                <StoreInfoArea>
                 <StoreInfo src={posIcon} content="경기 시흥시 중심상가1길 18 주차타워"></StoreInfo>
                 <StoreInfo src={timeIcon} content="월 09:00 ~ 익일 1:00"></StoreInfo>
                 <StoreInfo src={infoIcon} content="예약가능, 주차가능"></StoreInfo>
-            </StoreInfoArea>
+                </StoreInfoArea>
 
-            <DividedDiv></DividedDiv>
+                <DividedDiv></DividedDiv>
 
-            {/* 음식 메뉴 */}
-            {state.menus[0].menuName !== "" &&  // 가맹점에 메뉴가 없을때
+                {/* 음식 메뉴 */}
+                {state.menus[0].menuName !== "" &&  // 가맹점에 메뉴가 없을때
                 <StoreMenuArea>
                     <StoreList menus={state.menus}></StoreList>
 
                 </StoreMenuArea>
-            }
-
-
+                }
+            </ContentsArea>
+            
             <Navigation></Navigation>
         </Wrapper>
 
