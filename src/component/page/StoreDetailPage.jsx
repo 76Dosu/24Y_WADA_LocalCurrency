@@ -1,4 +1,4 @@
-import React, { useState , useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { useLocation } from "react-router-dom";
 
@@ -16,7 +16,7 @@ import DividedDiv from "../ui/DividedDiv"
 import StoreInfo from "../ui/StoreInfo";
 import StoreList from "../list/StoreList.jsx";
 
-import { db } from "../../firebase.js" 
+import { db } from "../../firebase.js"
 
 //image
 import storeImage from "../../images/storeBannerImage.png"
@@ -53,12 +53,12 @@ const LikeContainer = styled.div`
 
     margin:12px 0px 4px 0px;
 `;
-    const Icon = styled.img`
+const Icon = styled.img`
         width: 16px;
         height: 16px;
         text-align: center;
     `;
-    const Numb = styled.p`
+const Numb = styled.p`
         font-size: 14px;
         color: #66707A;
     `;
@@ -87,9 +87,9 @@ function StoreDetailPage(props) {
 
 
     const [data, setData] = useState([]);
-    const {state} = useLocation();
+    const { state } = useLocation();
 
-    
+
 
     return (
 
@@ -101,11 +101,11 @@ function StoreDetailPage(props) {
 
             {/* 유틸 */}
             <UtilContentArea>
-            
-                <StoreTItle>{state.name+" "+state.branchName}</StoreTItle>
+
+                <StoreTItle>{state.name + " " + state.branchName}</StoreTItle>
                 <LikeContainer>
-                        <Icon src={"/LikeBlue.png"}></Icon>
-                        <Numb>132</Numb>
+                    <Icon src={"/LikeBlue.png"}></Icon>
+                    <Numb>132</Numb>
                 </LikeContainer>
                 <PostingCount>23명의 포스팅</PostingCount>
 
@@ -123,18 +123,21 @@ function StoreDetailPage(props) {
                 <StoreInfo src={timeIcon} content="월 09:00 ~ 익일 1:00"></StoreInfo>
                 <StoreInfo src={infoIcon} content="예약가능, 주차가능"></StoreInfo>
             </StoreInfoArea>
-            
+
             <DividedDiv></DividedDiv>
 
             {/* 음식 메뉴 */}
-            <StoreMenuArea>
-                <StoreList menus={state.menus}></StoreList>
+            {state.menus[0].menuName !== "" &&  // 가맹점에 메뉴가 없을때
+                <StoreMenuArea>
+                    <StoreList menus={state.menus}></StoreList>
 
-            </StoreMenuArea>
+                </StoreMenuArea>
+            }
+
 
             <Navigation></Navigation>
         </Wrapper>
-    
+
     )
 
 }
