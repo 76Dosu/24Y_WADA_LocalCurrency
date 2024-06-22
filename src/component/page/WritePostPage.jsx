@@ -158,8 +158,6 @@ function CommunityPage(props) {
 
     const [storeData, setStoreData] = useState(null);
     const storeName = state[0]; // 찾아야 할 store ID
-    console.log("state[0]")
-    console.log(state[0])
 
     useEffect(() => {
         const findStoreByName = async (storeName) => {

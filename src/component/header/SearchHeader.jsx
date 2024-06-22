@@ -1,11 +1,9 @@
 import React from "react";
 import styled from "styled-components";
-import { useNavigate } from "react-router-dom";
 
 //component
 
 //images
-import backIcon from "../../images/back.png"
 import searchIcon from "../../images/searchIcon.png"
 
 //style
@@ -25,16 +23,10 @@ const Wrapper = styled.div`
 `
 
 const BackIcon = styled.img`
-    width:16px;
-    height:16px;
-    margin-right:16px;
+    width:80px;
+    height:25px;
 `
 
-const HeaderTitleText = styled.p`
-    font-size: 16px;
-    font-weight: 500;
-    color:var(--main-textColor);
-`
 
 const SerachIcon = styled.img`
     width:20px;
@@ -44,14 +36,11 @@ const SerachIcon = styled.img`
 
 function SearchHeader(props) {
 
-    const navigation = useNavigate();
-    const { backLink } = props;
 
     return (
 
         <Wrapper>
-            <BackIcon onClick={() => {navigation(`${backLink}`)}} src={backIcon}></BackIcon>
-            <HeaderTitleText>{props.headerTitle}</HeaderTitleText>
+            <BackIcon src={"/chak.png"}></BackIcon>
 
             <SerachIcon src={searchIcon}></SerachIcon>
         </Wrapper>

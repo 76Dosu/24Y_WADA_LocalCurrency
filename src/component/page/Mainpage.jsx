@@ -62,7 +62,7 @@ function MainPage(props) {
     return (
         <Wrapper>
             <FixedTop />
-            <SearchHeader backLink="/" headerTitle="가맹점 찾기"></SearchHeader>
+            <SearchHeader backLink="/" headerTitle=""></SearchHeader>
 
             {/* 광고 배너 */}
             <Banner>

@@ -220,10 +220,7 @@ function Tabs(props) {
     const { minWidthPer, tabType, tabList, nowState, data } = props;
     // 탭바 밑에 컨텐츠 영역 높이 조절하려면 ContentArea, TabContent 두 컴포넌트의 css 속성 height: calc() 수정해주면됨 (둘다 변경해줘야함)
 
-    const categoryLabel = ['한식', '중식'];
 
-    const myStoreList = ['뜨끈이감자탕', '생금마을', '카페39', '뜨끈이감자탕', '생금마을', '카페39'];
-    const recentStoreList = ['27%', '함돈'];
 
     const [activeTab, setActiveTab] = useState(nowState || 0);
     const [mapTab, setMapTab] = useState(1);
@@ -296,19 +293,19 @@ function Tabs(props) {
                     </ContentWrapper>
                 </TabContent>
             )}
-            {tabType === '나의가맹점' && (
+            {tabType === 'MY플레이스' && (
                 <TabContent minheight={280} key={i}>
                     <>
                         {i === 0 &&
                             <>
-                                <MyStoreGrid data={data} tabData={bookMarkData} stores={myStoreList} onClickItem={function(s){
+                                <MyStoreGrid data={data} tabData={bookMarkData} onClickItem={function(s){
                                                     navigate("/store/" + s.id, {state: [s, 1]});
                                                 }}></MyStoreGrid>
                             </>
                         }
                         {i === 1 &&
                             <>
-                                <MyStoreGrid data={data} tabData={recentVisitData} stores={myStoreList} onClickItem={function(s){
+                                <MyStoreGrid data={data} tabData={recentVisitData} onClickItem={function(s){
                                                     navigate("/store/" + s.id, {state: [s, 0]});
                                                 }}></MyStoreGrid>
                             </>
@@ -378,7 +375,7 @@ function Tabs(props) {
                     )}
                 </>
             )}
-            {tabType === '나의가맹점' && (
+            {tabType === 'MY플레이스' && (
                 <>
                     <TempTabContainer ref={tabContainerRef}>
                         {tabList.map((tab, index) => (

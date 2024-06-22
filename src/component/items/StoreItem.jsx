@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { db } from "../../firebase.js";    // firebase 설정 가져오기
 
@@ -13,6 +12,8 @@ const Wrapper = styled.div`
 
     display: flex;
     flex-direction: column;
+
+    border: 2px solid #EEEEEE;
 `;
 const MenuWrapper = styled(Wrapper)`
     min-width: 160px;
@@ -26,16 +27,15 @@ const MenuWrapper = styled(Wrapper)`
 
     display: flex;
     flex-direction: column; 
+
+    border: 2px solid #EEEEEE;
 `
 
 const ContentContainer = styled.div`
     padding: 10px;
     display: flex;
     flex-direction: column;
-    border-right: 2px solid #EEEEEE;
-    border-bottom: 2px solid #EEEEEE;
-    border-left: 2px solid #EEEEEE;
-    border-radius: 0 0 12px 12px;
+    
 `;
 
 const NameText = styled.p`
@@ -62,6 +62,8 @@ const PostImgBox = styled.div`
     overflow: hidden;
     position: relative;
     border-radius: 12px 12px 0 0;
+    
+    border-bottom: 2px solid #EEEEEE;
 `;
 const PostImg = styled.img`
     width: 100%;
@@ -118,10 +120,9 @@ const LastIcon = styled(Icon)`
 
 function StoreItem(props) {
 
-    const { listType, heightRatio, store, data, onClickItem } = props;
+    const { listType, heightRatio, data, onClickItem } = props;
     const [isBook, setIsBook] = useState(false);
 
-    const navigate = useNavigate()
     const [bookMarkArray, setBookMarkArray] = useState([])
 
     useEffect(function () {
@@ -189,7 +190,7 @@ function StoreItem(props) {
                 </Wrapper>
 
             )}
-            {listType === '나의가맹점' && (
+            {listType === 'MY플레이스' && (
                 <Wrapper onClick={onClickItem}>
                     <PostImgBox height={heightRatio || 80}>
                         <PostImg src={data.storeImage + ".png"}></PostImg>

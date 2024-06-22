@@ -32,8 +32,9 @@ function PostList(props) {
             </>
         ))
     }
-    {console.log("storePosts==================================================")}
-    {console.log(storePosts)}
+
+    const orderedList = postData.sort((a, b) => new Date(a.year+"."+a.month+"."+a.day) - new Date(b.year+"."+b.month+"."+b.day)).reverse();
+    console.log(orderedList)
 
     return (
         <Wrapper>

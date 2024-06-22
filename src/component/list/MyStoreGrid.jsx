@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import StoreItem from '../items/StoreItem';
 
@@ -24,9 +24,6 @@ const SGrid = styled.div`
 
 function MyStoreGrid(props) {
     const { data, tabData, onClickItem } = props;
-    const is = false;
-
-    const storesList = ['뜨끈이감자탕', '생금마을', '카페39'];
     return (
         <Wrapper>
             <SGrid>
@@ -36,7 +33,7 @@ function MyStoreGrid(props) {
                             <>
                                 {tabData.includes(store.name + "_" + store.branchName) &&
                                     <>
-                                        <StoreItem data={store} listType={'나의가맹점'} onClickItem={()=>onClickItem(store)}></StoreItem>
+                                        <StoreItem data={store} listType={'MY플레이스'} onClickItem={()=>onClickItem(store)}></StoreItem>
                                     </>
                                 }
                             </>
