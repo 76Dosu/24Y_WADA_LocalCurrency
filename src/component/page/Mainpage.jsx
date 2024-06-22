@@ -20,6 +20,8 @@ const Wrapper = styled.div`
     width: 100%;
     height: calc(100vh - 103px - 114px);
     margin-top: 103px;
+    margin-bottom:114px;
+    overflow: scroll;
 `;
 
 const Tag = styled.p`
